@@ -15,7 +15,6 @@ export function HeroSection() {
           fill
           className="object-cover"
           priority
-          quality={90}
         />
         <div className="absolute inset-0 hero-overlay" />
       </div>
