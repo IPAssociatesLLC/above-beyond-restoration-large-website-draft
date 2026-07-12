@@ -9,7 +9,7 @@ const services = [
     description: 'Emergency water extraction, structural drying, and complete water damage restoration. We handle floods, burst pipes, and sewage backups.',
     href: '/services/water-damage',
     image: '/images/water-damage.png',
-    color: 'from-blue-600 to-blue-800',
+    color: ,
   },
   {
     icon: Flame,
