@@ -38,6 +38,11 @@ export default function EstimatesPage() {
 
   const load = async () => { setLoading(true); try { setList(await getEstimates()) } finally { setLoading(false) } }
   useEffect(() => { load() }, [])
+  useEffect(() => {
+    if (typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('new') === '1') {
+      setShowModal(true)
+    }
+  }, [])
 
   const handleSave = () => startTransition(async () => {
     await createEstimate(form); setShowModal(false); await load()

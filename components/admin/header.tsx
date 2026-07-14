@@ -41,7 +41,7 @@ export function AdminHeader({ onMobileMenuOpen, title }: AdminHeaderProps) {
       {/* Right actions */}
       <div className="flex items-center gap-2">
         <Link
-          href="/admin/estimates/new"
+          href="/admin/estimates?new=1"
           className="hidden sm:flex items-center gap-2 px-3 py-2 bg-brand-orange text-white rounded-xl text-sm font-semibold hover:bg-orange-600 transition-colors"
         >
           <Plus className="w-4 h-4" />
