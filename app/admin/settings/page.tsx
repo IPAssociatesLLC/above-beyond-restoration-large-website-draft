@@ -1,10 +1,12 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { Save, CheckCircle, AlertCircle, ExternalLink, Mail, Building, Loader2 } from 'lucide-react'
+import { Save, CheckCircle, AlertCircle, ExternalLink, Mail, Building, Loader2, Send } from 'lucide-react'
 import {
   getSettings,
   getIntegrationStatus,
+  getEmailConfig,
+  saveEmailConfig,
   saveCompanyInfo,
   saveNotificationPrefs,
   type CompanyInfo,
@@ -58,15 +60,6 @@ const INTEGRATIONS: IntegrationMeta[] = [
     envVar: 'QUICKBOOKS_CLIENT_ID',
     docsUrl: 'https://developer.intuit.com',
   },
-  {
-    key: 'resend',
-    title: 'Resend Email',
-    icon: '📧',
-    color: 'border-purple-200 bg-purple-50',
-    description: 'Transactional email for contact form submissions and client communications.',
-    envVar: 'RESEND_API_KEY',
-    docsUrl: 'https://resend.com/api-keys',
-  },
 ]
 
 const PREF_KEYS = [
@@ -85,19 +78,36 @@ export default function SettingsPage() {
   const [status, setStatus] = useState<Record<string, boolean>>({})
   const [saved, setSaved] = useState<Record<string, boolean>>({})
   const [saving, setSaving] = useState<Record<string, boolean>>({})
+  const [gmailUser, setGmailUser] = useState('')
+  const [gmailPassword, setGmailPassword] = useState('')
+  const [hasGmailPassword, setHasGmailPassword] = useState(false)
 
   useEffect(() => {
-    Promise.all([getSettings(), getIntegrationStatus()])
-      .then(([settings, integrationStatus]) => {
+    Promise.all([getSettings(), getIntegrationStatus(), getEmailConfig()])
+      .then(([settings, integrationStatus, emailCfg]) => {
         setCompanyInfo(settings.companyInfo)
         const initialPrefs = { ...settings.notificationPrefs }
         for (const p of PREF_KEYS) if (!(p in initialPrefs)) initialPrefs[p] = true
         setPrefs(initialPrefs)
         setStatus(integrationStatus)
+        setGmailUser(emailCfg.gmailUser)
+        setHasGmailPassword(emailCfg.hasPassword)
       })
       .catch(() => setCompanyInfo(null))
       .finally(() => setLoading(false))
   }, [])
+
+  const handleSaveEmail = async () => {
+    setSaving((p) => ({ ...p, email: true }))
+    try {
+      await saveEmailConfig({ gmailUser, gmailAppPassword: gmailPassword })
+      setGmailPassword('')
+      if (gmailUser) setHasGmailPassword(true)
+      flashSaved('email')
+    } finally {
+      setSaving((p) => ({ ...p, email: false }))
+    }
+  }
 
   const flashSaved = (section: string) => {
     setSaved((prev) => ({ ...prev, [section]: true }))
@@ -175,6 +185,67 @@ export default function SettingsPage() {
           >
             {saving.company ? <Loader2 className="w-4 h-4 animate-spin" /> : saved.company ? <CheckCircle className="w-4 h-4" /> : <Save className="w-4 h-4" />}
             {saved.company ? 'Saved!' : 'Save Company Info'}
+          </button>
+        </div>
+      </div>
+
+      {/* Contact Form Email (Gmail) */}
+      <div className="bg-white rounded-xl border border-gray-100 shadow-sm">
+        <div className="px-6 py-4 border-b border-gray-100 flex items-center gap-3">
+          <div className="w-8 h-8 rounded-lg bg-orange-50 border border-orange-200 flex items-center justify-center">
+            <Send className="w-4 h-4 text-brand-orange" />
+          </div>
+          <div className="min-w-0">
+            <h2 className="font-bold text-gray-900 text-sm">Contact Form Email (Gmail)</h2>
+            <p className="text-xs text-gray-500">
+              Website contact form submissions are emailed to both admins from this Gmail account. Leads always appear under Leads even if email is not set.
+            </p>
+          </div>
+        </div>
+        <div className="p-6 space-y-4">
+          <div className="flex items-start gap-2 p-3 bg-blue-50 rounded-lg">
+            <AlertCircle className="w-4 h-4 text-blue-500 flex-shrink-0 mt-0.5" />
+            <p className="text-xs text-blue-700 leading-relaxed">
+              Use a Google <strong>App Password</strong>, not your normal Gmail password. Turn on 2-Step Verification, then create one at{' '}
+              <a href="https://myaccount.google.com/apppasswords" target="_blank" rel="noopener noreferrer" className="font-semibold underline">
+                myaccount.google.com/apppasswords
+              </a>{' '}
+              and paste the 16-character code below.
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">Gmail Address</label>
+              <input
+                type="email"
+                value={gmailUser}
+                onChange={(e) => setGmailUser(e.target.value)}
+                placeholder="youremail@gmail.com"
+                className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-brand-orange"
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">
+                App Password {hasGmailPassword && <span className="text-green-600 normal-case">(saved)</span>}
+              </label>
+              <input
+                type="password"
+                value={gmailPassword}
+                onChange={(e) => setGmailPassword(e.target.value)}
+                placeholder={hasGmailPassword ? '•••••••• (leave blank to keep)' : '16-character app password'}
+                className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-brand-orange"
+              />
+            </div>
+          </div>
+        </div>
+        <div className="px-6 pb-5">
+          <button
+            onClick={handleSaveEmail}
+            disabled={saving.email}
+            className="flex items-center gap-2 px-5 py-2.5 bg-brand-navy text-white rounded-lg text-sm font-semibold hover:bg-blue-900 transition-colors disabled:opacity-60"
+          >
+            {saving.email ? <Loader2 className="w-4 h-4 animate-spin" /> : saved.email ? <CheckCircle className="w-4 h-4" /> : <Save className="w-4 h-4" />}
+            {saved.email ? 'Saved!' : 'Save Email Settings'}
           </button>
         </div>
       </div>

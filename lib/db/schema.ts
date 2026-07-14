@@ -186,5 +186,6 @@ export const appSettings = pgTable('app_settings', {
   userId: text('userId').primaryKey(),
   companyInfo: jsonb('companyInfo').notNull().default({}),
   notificationPrefs: jsonb('notificationPrefs').notNull().default({}),
+  emailConfig: jsonb('emailConfig').notNull().default({}),
   updatedAt: timestamp('updatedAt').notNull().defaultNow(),
 })

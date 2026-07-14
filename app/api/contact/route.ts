@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/lib/db'
 import { user as userTable, leads } from '@/lib/db/schema'
 import { inArray } from 'drizzle-orm'
+import { getActiveEmailConfig } from '@/app/actions/settings'
 
 const ADMIN_EMAILS = ['ipassociatesllc@gmail.com', 'tommybletcher@gmail.com']
 
@@ -92,20 +93,19 @@ Submitted via aboveandbeyondrestoration.com
   }
 
   // 2) Email both admins with all of the submitted fields, sent straight from the
-  //    company Gmail account over Gmail SMTP (no third-party email service).
-  //    Requires GMAIL_USER (the Gmail address) and GMAIL_APP_PASSWORD (a Google
-  //    "App Password" — a 16-char code generated once in the Google account).
-  const gmailUser = process.env.GMAIL_USER
-  const gmailPass = process.env.GMAIL_APP_PASSWORD
-  if (gmailUser && gmailPass) {
+  //    company Gmail account over Gmail SMTP (no third-party email service). The
+  //    Gmail address + App Password are managed by the admin in Settings → Email,
+  //    so credentials can be added or changed without touching code.
+  const emailCfg = await getActiveEmailConfig()
+  if (emailCfg) {
     try {
       const nodemailer = (await import('nodemailer')).default
       const transporter = nodemailer.createTransport({
         service: 'gmail',
-        auth: { user: gmailUser, pass: gmailPass },
+        auth: { user: emailCfg.gmailUser, pass: emailCfg.gmailAppPassword },
       })
       await transporter.sendMail({
-        from: `"Above & Beyond Restoration" <${gmailUser}>`,
+        from: `"Above & Beyond Restoration" <${emailCfg.gmailUser}>`,
         to: ADMIN_EMAILS.join(', '),
         subject: `[${urgency === 'emergency' ? 'EMERGENCY' : 'New Lead'}] Estimate Request from ${name} — ${service}`,
         text: emailBody,
@@ -121,6 +121,6 @@ Submitted via aboveandbeyondrestoration.com
   }
 
   // Fallback when Gmail credentials aren't set yet: the lead is still created in the dashboard.
-  console.log('[v0] Contact form submission (no GMAIL_APP_PASSWORD set):\n', emailBody)
+  console.log('[v0] Contact form submission (no Gmail config saved in Settings):\n', emailBody)
   return NextResponse.json({ ok: true, emailed: false })
 }

@@ -17,6 +17,11 @@ export interface CompanyInfo {
 
 export type NotificationPrefs = Record<string, boolean>
 
+export interface EmailConfig {
+  gmailUser: string
+  gmailAppPassword: string
+}
+
 const DEFAULT_COMPANY: CompanyInfo = {
   name: 'Above & Beyond Restoration',
   phone: '503-608-2930',
@@ -54,7 +59,10 @@ export async function getSettings(): Promise<{ companyInfo: CompanyInfo; notific
   }
 }
 
-async function upsert(userId: string, patch: { companyInfo?: CompanyInfo; notificationPrefs?: NotificationPrefs }) {
+async function upsert(
+  userId: string,
+  patch: { companyInfo?: CompanyInfo; notificationPrefs?: NotificationPrefs; emailConfig?: EmailConfig },
+) {
   const existing = await db.select().from(appSettings).where(eq(appSettings.userId, userId)).limit(1)
   if (existing[0]) {
     await db
@@ -66,8 +74,46 @@ async function upsert(userId: string, patch: { companyInfo?: CompanyInfo; notifi
       userId,
       companyInfo: patch.companyInfo ?? DEFAULT_COMPANY,
       notificationPrefs: patch.notificationPrefs ?? {},
+      emailConfig: patch.emailConfig ?? {},
     })
   }
+}
+
+/** Returns the saved Gmail config for the current admin (password is masked). */
+export async function getEmailConfig(): Promise<{ gmailUser: string; hasPassword: boolean }> {
+  const userId = await getUserId()
+  const rows = await db.select().from(appSettings).where(eq(appSettings.userId, userId)).limit(1)
+  const cfg = (rows[0]?.emailConfig as Partial<EmailConfig>) ?? {}
+  return { gmailUser: cfg.gmailUser ?? '', hasPassword: Boolean(cfg.gmailAppPassword) }
+}
+
+export async function saveEmailConfig(config: EmailConfig): Promise<{ ok: boolean }> {
+  const userId = await getUserId()
+  // Keep the existing password if the form submits a blank one (masked field).
+  const rows = await db.select().from(appSettings).where(eq(appSettings.userId, userId)).limit(1)
+  const existingCfg = (rows[0]?.emailConfig as Partial<EmailConfig>) ?? {}
+  await upsert(userId, {
+    emailConfig: {
+      gmailUser: config.gmailUser.trim(),
+      gmailAppPassword: config.gmailAppPassword.trim() || existingCfg.gmailAppPassword || '',
+    },
+  })
+  return { ok: true }
+}
+
+/**
+ * Server-only helper (no auth) used by the public contact API to look up the
+ * Gmail credentials any admin has saved. Not exported for client use.
+ */
+export async function getActiveEmailConfig(): Promise<EmailConfig | null> {
+  const rows = await db.select().from(appSettings)
+  for (const row of rows) {
+    const cfg = (row.emailConfig as Partial<EmailConfig>) ?? {}
+    if (cfg.gmailUser && cfg.gmailAppPassword) {
+      return { gmailUser: cfg.gmailUser, gmailAppPassword: cfg.gmailAppPassword }
+    }
+  }
+  return null
 }
 
 export async function saveCompanyInfo(companyInfo: CompanyInfo): Promise<{ ok: boolean }> {
