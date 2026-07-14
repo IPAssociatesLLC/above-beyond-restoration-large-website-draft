@@ -3,28 +3,15 @@
 import { useState, useRef } from 'react'
 import { Upload, Camera, X, Loader2, FileText, Download, Send, CheckCircle, Sparkles, ImageIcon, Plus, AlertCircle } from 'lucide-react'
 import { Card } from '@/components/ui/card'
-import Image from 'next/image'
+import { generatePhotoEstimate, type GeneratedEstimate } from '@/app/actions/photo-estimate'
 
-interface EstimateLine {
-  code: string
-  description: string
-  unit: string
-  qty: number
-  unitPrice: number
-  total: number
-  category: string
-}
-
-interface GeneratedEstimate {
-  summary: string
-  damageType: string
-  affectedArea: string
-  lines: EstimateLine[]
-  subtotal: number
-  overhead: number
-  profit: number
-  total: number
-  notes: string[]
+function fileToDataUrl(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.onload = () => resolve(reader.result as string)
+    reader.onerror = reject
+    reader.readAsDataURL(file)
+  })
 }
 
 const mockEstimate: GeneratedEstimate = {
@@ -65,11 +52,14 @@ export default function PhotoEstimatorPage() {
   const [damageType, setDamageType] = useState('Water Damage')
   const [clientName, setClientName] = useState('')
   const [propertyAddress, setPropertyAddress] = useState('')
+  const [error, setError] = useState<string | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
-  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files ?? [])
-    const newImages = files.map((file) => ({ url: URL.createObjectURL(file), name: file.name }))
+    const newImages = await Promise.all(
+      files.map(async (file) => ({ url: await fileToDataUrl(file), name: file.name })),
+    )
     setImages((prev) => [...prev, ...newImages])
   }
 
@@ -78,10 +68,36 @@ export default function PhotoEstimatorPage() {
   }
 
   const analyzeImages = async () => {
+    setError(null)
     setIsAnalyzing(true)
     setStep('analyzing')
-    // Simulate AI analysis
-    await new Promise((res) => setTimeout(res, 3000))
+    try {
+      const result = await generatePhotoEstimate({
+        images: images.map((img) => img.url),
+        damageType,
+        clientName,
+        propertyAddress,
+      })
+      if (result.ok) {
+        setEstimate(result.estimate)
+        setStep('complete')
+      } else {
+        setError(result.error)
+        setStep('upload')
+      }
+    } catch {
+      setError('Something went wrong while analyzing the photos. Please try again.')
+      setStep('upload')
+    } finally {
+      setIsAnalyzing(false)
+    }
+  }
+
+  const runDemo = async () => {
+    setError(null)
+    setIsAnalyzing(true)
+    setStep('analyzing')
+    await new Promise((res) => setTimeout(res, 2500))
     setEstimate(mockEstimate)
     setIsAnalyzing(false)
     setStep('complete')
@@ -181,10 +197,17 @@ export default function PhotoEstimatorPage() {
               </div>
             )}
 
+            {error && (
+              <div className="mt-3 flex items-start gap-2 p-3 bg-red-50 rounded-xl">
+                <AlertCircle className="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" />
+                <p className="text-xs text-red-600">{error}</p>
+              </div>
+            )}
+
             <div className="mt-4 space-y-2">
               <button
                 onClick={analyzeImages}
-                disabled={isAnalyzing}
+                disabled={isAnalyzing || images.length === 0}
                 className="w-full py-3 bg-brand-orange text-white rounded-xl font-bold text-sm hover:bg-orange-600 transition-colors disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
                 {isAnalyzing ? (
@@ -194,7 +217,7 @@ export default function PhotoEstimatorPage() {
                 )}
               </button>
               {images.length === 0 && (
-                <button onClick={analyzeImages} disabled={isAnalyzing}
+                <button onClick={runDemo} disabled={isAnalyzing}
                   className="w-full py-2.5 bg-gray-100 text-gray-600 rounded-xl font-semibold text-sm hover:bg-gray-200 transition-colors flex items-center justify-center gap-2">
                   <ImageIcon className="w-4 h-4" /> Run Demo Analysis
                 </button>
