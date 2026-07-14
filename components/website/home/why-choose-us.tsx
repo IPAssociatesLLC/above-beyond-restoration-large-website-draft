@@ -43,8 +43,8 @@ export function WhyChooseUs() {
           <div className="relative">
             <div className="relative rounded-2xl overflow-hidden shadow-2xl">
               <Image
-                src="/images/team.png"
-                alt="Above & Beyond Restoration team"
+                src="/images/why-choose-us-team.png"
+                alt="Above & Beyond Restoration technicians cleaning up water damage inside a home"
                 width={600}
                 height={450}
                 className="object-cover w-full h-80 md:h-[450px]"
