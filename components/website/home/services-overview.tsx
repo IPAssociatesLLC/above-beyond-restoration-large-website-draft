@@ -106,7 +106,7 @@ export function ServicesOverview() {
                   </div>
                 </div>
                 <div className="absolute bottom-4 left-4 right-4">
-                  <span className="inline-block bg-black/[0.25] px-3 py-1.5 rounded-full">
+                  <span className="inline-block bg-black/70 px-3 py-1.5 rounded-full">
                     <h3 className="text-white font-bold text-base leading-tight">{service.title}</h3>
                   </span>
                 </div>
