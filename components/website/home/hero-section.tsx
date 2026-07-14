@@ -10,8 +10,8 @@ export function HeroSection() {
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/images/hero-restoration.png"
-          alt="Professional restoration work in progress"
+          src="/images/why-choose-us-team.png"
+          alt="Above & Beyond Restoration technicians cleaning up water damage inside a home"
           fill
           className="object-cover"
           priority
