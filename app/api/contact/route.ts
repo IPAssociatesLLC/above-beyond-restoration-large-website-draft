@@ -91,34 +91,36 @@ Submitted via aboveandbeyondrestoration.com
     console.error('[v0] Failed to create lead from contact form:', (e as Error).message)
   }
 
-  // 2) Email both admins with all of the submitted fields (requires RESEND_API_KEY).
-  const resendKey = process.env.RESEND_API_KEY
-  if (resendKey) {
-    const res = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${resendKey}`,
-      },
-      body: JSON.stringify({
-        from: 'Above & Beyond Restoration <onboarding@resend.dev>',
-        to: ADMIN_EMAILS,
+  // 2) Email both admins with all of the submitted fields, sent straight from the
+  //    company Gmail account over Gmail SMTP (no third-party email service).
+  //    Requires GMAIL_USER (the Gmail address) and GMAIL_APP_PASSWORD (a Google
+  //    "App Password" — a 16-char code generated once in the Google account).
+  const gmailUser = process.env.GMAIL_USER
+  const gmailPass = process.env.GMAIL_APP_PASSWORD
+  if (gmailUser && gmailPass) {
+    try {
+      const nodemailer = (await import('nodemailer')).default
+      const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: { user: gmailUser, pass: gmailPass },
+      })
+      await transporter.sendMail({
+        from: `"Above & Beyond Restoration" <${gmailUser}>`,
+        to: ADMIN_EMAILS.join(', '),
         subject: `[${urgency === 'emergency' ? 'EMERGENCY' : 'New Lead'}] Estimate Request from ${name} — ${service}`,
         text: emailBody,
         html: emailHtml,
-        reply_to: email || undefined,
-      }),
-    })
-    if (!res.ok) {
-      const err = await res.text()
-      console.error('[v0] Resend error:', err)
+        replyTo: email || undefined,
+      })
+      return NextResponse.json({ ok: true, emailed: true })
+    } catch (e) {
+      console.error('[v0] Gmail SMTP error:', (e as Error).message)
       // Lead was still created; report partial success so the visitor isn't blocked.
       return NextResponse.json({ ok: true, emailed: false })
     }
-    return NextResponse.json({ ok: true, emailed: true })
   }
 
-  // Fallback when no email provider is configured: the lead is still created in the dashboard.
-  console.log('[v0] Contact form submission (no RESEND_API_KEY set):\n', emailBody)
+  // Fallback when Gmail credentials aren't set yet: the lead is still created in the dashboard.
+  console.log('[v0] Contact form submission (no GMAIL_APP_PASSWORD set):\n', emailBody)
   return NextResponse.json({ ok: true, emailed: false })
 }
