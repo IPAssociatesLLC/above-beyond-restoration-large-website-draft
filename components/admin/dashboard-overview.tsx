@@ -106,7 +106,7 @@ export function DashboardOverview() {
               <XAxis dataKey="month" tick={{ fontSize: 12, fill: '#9CA3AF' }} axisLine={false} tickLine={false} />
               <YAxis tick={{ fontSize: 11, fill: '#9CA3AF' }} axisLine={false} tickLine={false} tickFormatter={v => `$${(v / 1000).toFixed(0)}k`} />
               <Tooltip
-                formatter={(val: number) => [`$${val.toLocaleString()}`, 'Revenue']}
+                formatter={(val) => [`$${Number(val).toLocaleString()}`, 'Revenue']}
                 contentStyle={{ borderRadius: '12px', border: '1px solid #E5E7EB', fontSize: '13px' }}
               />
               <Area type="monotone" dataKey="revenue" stroke="#F97316" strokeWidth={2.5} fill="url(#revGrad)" name="Revenue" />
