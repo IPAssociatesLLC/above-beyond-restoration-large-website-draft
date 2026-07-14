@@ -181,3 +181,10 @@ export const photos = pgTable('photos', {
   category: text('category').default('job'),
   createdAt: timestamp('createdAt').notNull().defaultNow(),
 })
+
+export const appSettings = pgTable('app_settings', {
+  userId: text('userId').primaryKey(),
+  companyInfo: jsonb('companyInfo').notNull().default({}),
+  notificationPrefs: jsonb('notificationPrefs').notNull().default({}),
+  updatedAt: timestamp('updatedAt').notNull().defaultNow(),
+})
