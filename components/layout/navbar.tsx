@@ -49,7 +49,7 @@ export function Navbar() {
             <span className="text-white/60">|</span>
             <span>IICRC Certified Technicians</span>
             <span className="text-white/60">|</span>
-            <span>CCB #193269</span>
+            <span>CCB #262371</span>
           </div>
           <div className="flex items-center gap-4">
             <span>Licensed, Bonded & Insured</span>

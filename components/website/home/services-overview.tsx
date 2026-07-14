@@ -100,14 +100,15 @@ export function ServicesOverview() {
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className={`absolute inset-0 bg-gradient-to-b ${service.color} opacity-60`} />
                 <div className="absolute inset-0 flex items-start p-4">
-                  <div className="bg-white/20 backdrop-blur-sm p-2 rounded-lg">
+                  <div className="bg-black/40 p-2 rounded-lg">
                     <service.icon className="w-6 h-6 text-white" />
                   </div>
                 </div>
                 <div className="absolute bottom-4 left-4 right-4">
-                  <h3 className="text-white font-bold text-lg leading-tight">{service.title}</h3>
+                  <span className="inline-block bg-black/[0.25] px-3 py-1.5 rounded-full">
+                    <h3 className="text-white font-bold text-base leading-tight">{service.title}</h3>
+                  </span>
                 </div>
               </div>
 

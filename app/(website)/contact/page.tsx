@@ -1,8 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import type { Metadata } from 'next'
-import { Phone, Mail, MapPin, Clock, CheckCircle, AlertTriangle } from 'lucide-react'
+import { Phone, Mail, MapPin, Clock, CheckCircle, AlertTriangle, Loader2 } from 'lucide-react'
 
 const services = [
   'Water Damage', 'Fire Damage', 'Mold Remediation', 'Smoke Damage',
@@ -11,13 +10,29 @@ const services = [
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
   const [form, setForm] = useState({
     name: '', phone: '', email: '', address: '', service: '', urgency: 'non-emergency', message: '',
   })
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setSubmitted(true)
+    setLoading(true)
+    setError('')
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      })
+      if (!res.ok) throw new Error('Failed to send')
+      setSubmitted(true)
+    } catch {
+      setError('Something went wrong. Please call us directly at 503-608-2930.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -67,7 +82,7 @@ export default function ContactPage() {
                 <div className="space-y-4">
                   {[
                     { icon: Phone, label: 'Phone (24/7 Emergency)', value: '503-608-2930', href: 'tel:5036082930' },
-                    { icon: Mail, label: 'Email', value: 'tommybletcher@yahoo.com', href: 'mailto:tommybletcher@yahoo.com' },
+                    { icon: Mail, label: 'Email', value: 'TommyBletcher@gmail.com', href: 'mailto:TommyBletcher@gmail.com' },
                     { icon: MapPin, label: 'Mailing Address', value: 'P.O. Box 542, Sherwood, OR 97140', href: null },
                     { icon: Clock, label: 'Hours', value: '24/7 Emergency Service — We Never Close', href: null },
                   ].map((item, i) => (
@@ -101,7 +116,7 @@ export default function ContactPage() {
                     'Direct Insurance Billing',
                     '100% Satisfaction Guarantee',
                     'Licensed, Bonded & Insured',
-                    'CCB #193269',
+                    'CCB #262371',
                   ].map((item) => (
                     <li key={item} className="flex items-center gap-2 text-white/80 text-sm">
                       <CheckCircle className="w-4 h-4 text-brand-orange flex-shrink-0" />
@@ -114,7 +129,7 @@ export default function ContactPage() {
               {/* Service License */}
               <div className="bg-white rounded-xl p-4 border border-gray-100 text-center">
                 <p className="text-xs text-gray-500">Oregon CCB License</p>
-                <p className="text-2xl font-black text-brand-navy">#193269</p>
+                <p className="text-2xl font-black text-brand-navy">#262371</p>
                 <p className="text-xs text-gray-500 mt-1">Licensed • Bonded • Insured</p>
               </div>
             </div>
@@ -225,11 +240,16 @@ export default function ContactPage() {
                           placeholder="Please describe the damage, when it occurred, and any relevant details..."
                         />
                       </div>
+                      {error && (
+                        <p className="text-red-600 text-sm bg-red-50 border border-red-200 rounded-lg px-4 py-3">{error}</p>
+                      )}
                       <button
                         type="submit"
-                        className="w-full py-4 bg-brand-orange text-white rounded-xl font-bold text-lg hover:bg-orange-600 transition-colors"
+                        disabled={loading}
+                        className="w-full py-4 bg-brand-orange text-white rounded-xl font-bold text-lg hover:bg-orange-600 transition-colors disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                       >
-                        Submit Free Estimate Request
+                        {loading && <Loader2 className="w-5 h-5 animate-spin" />}
+                        {loading ? 'Sending...' : 'Submit Free Estimate Request'}
                       </button>
                       <p className="text-xs text-gray-500 text-center">
                         For immediate emergencies call <a href="tel:5036082930" className="text-brand-orange font-semibold">503-608-2930</a>. We respond to form submissions within 15 minutes.

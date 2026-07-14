@@ -48,9 +48,9 @@ export function Footer() {
                 <Phone className="w-4 h-4 text-brand-orange flex-shrink-0" />
                 503-608-2930
               </a>
-              <a href="mailto:info@aboveandbeyondrestoration.com" className="flex items-center gap-2 text-white/80 hover:text-brand-orange transition-colors">
+              <a href="mailto:TommyBletcher@gmail.com" className="flex items-center gap-2 text-white/80 hover:text-brand-orange transition-colors">
                 <Mail className="w-4 h-4 text-brand-orange flex-shrink-0" />
-                tommybletcher@yahoo.com
+                TommyBletcher@gmail.com
               </a>
               <div className="flex items-center gap-2 text-white/80">
                 <Clock className="w-4 h-4 text-brand-orange flex-shrink-0" />
@@ -134,7 +134,7 @@ export function Footer() {
                 { icon: Shield, text: 'Licensed, Bonded & Insured' },
                 { icon: Award, text: 'IICRC Certified Technicians' },
                 { icon: CheckCircle, text: 'Xactimate Certified' },
-                { icon: CheckCircle, text: 'CCB #193269' },
+                { icon: CheckCircle, text: 'CCB #262371' },
                 { icon: CheckCircle, text: '100% Satisfaction Guarantee' },
                 { icon: CheckCircle, text: '1 Year Full Warranty on Work' },
                 { icon: CheckCircle, text: 'Insurance Billing Experts' },
