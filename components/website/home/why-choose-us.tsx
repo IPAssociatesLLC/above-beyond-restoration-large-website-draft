@@ -47,7 +47,7 @@ export function WhyChooseUs() {
                 alt="Above & Beyond Restoration technicians cleaning up water damage inside a home"
                 width={600}
                 height={450}
-                className="object-cover w-full h-80 md:h-[450px]"
+                className="w-full h-auto"
               />
             </div>
             {/* Floating Badge */}
