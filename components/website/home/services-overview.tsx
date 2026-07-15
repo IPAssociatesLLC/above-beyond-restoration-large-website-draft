@@ -48,7 +48,7 @@ const services = [
     title: 'Clean Out & Junk Removal',
     description: 'Large-scale junk removal, property clean outs, and job site cleanup. Residential and commercial. Fast, efficient, and affordable.',
     href: '/services/cleanout',
-    image: '/images/demolition.png',
+    image: '/images/junk-trash-removal.png',
     color: 'from-teal-600 to-teal-800',
   },
   {
