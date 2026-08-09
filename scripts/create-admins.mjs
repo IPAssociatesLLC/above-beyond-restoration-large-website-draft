@@ -1,8 +1,8 @@
 import { auth } from '../lib/auth.ts'
 
 const admins = [
-  { name: 'IP Associates', email: 'ipassociatesllc@gmail.com', password: 'AboveBeyond2026!' },
-  { name: 'Tommy Bletcher', email: 'tommybletcher@gmail.com', password: 'AboveBeyond2026!' },
+  { name: 'IP Associates', email: 'ipassociatesllc@gmail.com', password: 'AboveBeyond-2026' },
+  { name: 'Tommy Bletcher', email: 'tommybletcher@gmail.com', password: 'AboveBeyond-2026' },
 ]
 
 for (const admin of admins) {
