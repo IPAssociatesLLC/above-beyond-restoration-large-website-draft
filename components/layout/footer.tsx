@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { Phone, Mail, MapPin, Clock, Shield, Award, CheckCircle } from 'lucide-react'
+import { FacebookIcon, InstagramIcon } from '@/components/icons/social-icons'
 
 export function Footer() {
   return (
@@ -55,6 +56,26 @@ export function Footer() {
               <div className="flex items-center gap-2 text-white/80">
                 <Clock className="w-4 h-4 text-brand-orange flex-shrink-0" />
                 24/7 Emergency Service
+              </div>
+              <div className="flex items-center gap-3 pt-2">
+                <a
+                  href="https://facebook.com/aboveandbeyondrestoration"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Follow Above & Beyond Restoration on Facebook"
+                  className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-brand-orange transition-colors"
+                >
+                  <FacebookIcon className="w-4 h-4" />
+                </a>
+                <a
+                  href="https://instagram.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Follow Above & Beyond Restoration on Instagram"
+                  className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-brand-orange transition-colors"
+                >
+                  <InstagramIcon className="w-4 h-4" />
+                </a>
               </div>
             </div>
           </div>

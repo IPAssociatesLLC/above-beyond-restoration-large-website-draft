@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Phone, Menu, X, ChevronDown } from 'lucide-react'
+import { FacebookIcon, InstagramIcon } from '@/components/icons/social-icons'
 import { cn } from '@/lib/utils'
 
 const services = [
@@ -58,6 +59,27 @@ export function Navbar() {
               <Phone className="w-3.5 h-3.5" />
               503-608-2930
             </a>
+            <span className="text-white/60">|</span>
+            <div className="flex items-center gap-3">
+              <a
+                href="https://facebook.com/aboveandbeyondrestoration"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Follow Above & Beyond Restoration on Facebook"
+                className="text-white/80 hover:text-brand-orange transition-colors"
+              >
+                <FacebookIcon className="w-4 h-4" />
+              </a>
+              <a
+                href="https://instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Follow Above & Beyond Restoration on Instagram"
+                className="text-white/80 hover:text-brand-orange transition-colors"
+              >
+                <InstagramIcon className="w-4 h-4" />
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -205,7 +227,7 @@ export function Navbar() {
                 )
               )}
 
-              <div className="pt-3">
+              <div className="pt-3 flex flex-col gap-3">
                 <Link
                   href="/contact"
                   className="block w-full py-3 bg-brand-orange text-white text-center rounded-lg font-semibold"
@@ -213,6 +235,26 @@ export function Navbar() {
                 >
                   Get a Free Estimate
                 </Link>
+                <div className="flex items-center justify-center gap-6 pt-2 pb-1">
+                  <a
+                    href="https://facebook.com/aboveandbeyondrestoration"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Follow Above & Beyond Restoration on Facebook"
+                    className="p-2 text-brand-navy hover:text-brand-orange transition-colors"
+                  >
+                    <FacebookIcon className="w-5 h-5" />
+                  </a>
+                  <a
+                    href="https://instagram.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Follow Above & Beyond Restoration on Instagram"
+                    className="p-2 text-brand-navy hover:text-brand-orange transition-colors"
+                  >
+                    <InstagramIcon className="w-5 h-5" />
+                  </a>
+                </div>
               </div>
             </div>
           </div>

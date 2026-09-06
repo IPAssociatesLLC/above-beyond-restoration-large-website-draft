@@ -29,9 +29,9 @@ export function HeroSection() {
           </div>
 
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight mb-6" style={{ fontFamily: 'var(--font-montserrat), Montserrat, sans-serif' }}>
-            Portland&apos;s Most Trusted
-            <span className="text-brand-orange block">Property Restoration</span>
-            Experts
+            <span className="block">Portland Emergency</span>
+            <span className="text-brand-orange block">Water &amp; Mold Damage</span>
+            <span className="block">Restoration Services</span>
           </h1>
 
           <p className="text-lg md:text-xl text-white/85 leading-relaxed mb-8 max-w-2xl">
