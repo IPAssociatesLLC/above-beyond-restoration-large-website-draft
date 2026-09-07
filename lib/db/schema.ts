@@ -1,4 +1,4 @@
-import { pgTable, text, timestamp, boolean, serial, numeric, jsonb, date } from 'drizzle-orm/pg-core'
+import { pgTable, text, timestamp, boolean, serial, numeric, jsonb, date, integer } from 'drizzle-orm/pg-core'
 
 // --- Better Auth required tables ---
 export const user = pgTable('user', {
@@ -187,5 +187,64 @@ export const appSettings = pgTable('app_settings', {
   companyInfo: jsonb('companyInfo').notNull().default({}),
   notificationPrefs: jsonb('notificationPrefs').notNull().default({}),
   emailConfig: jsonb('emailConfig').notNull().default({}),
+  updatedAt: timestamp('updatedAt').notNull().defaultNow(),
+})
+
+// --- SEO Programmatic Content & Blog Creator tables ---
+export const seoContentSchedule = pgTable('seo_content_schedule', {
+  id: serial('id').primaryKey(),
+  dayNumber: integer('dayNumber').notNull().unique(), // 1 to 30
+  theme: text('theme').notNull(),
+  targetCity: text('targetCity').notNull(),
+  pageKeywords: jsonb('pageKeywords').notNull().default([]), // [kw1, kw2, kw3]
+  blogKeyword: text('blogKeyword').notNull(),
+  blogTitle: text('blogTitle'),
+  status: text('status').notNull().default('pending'), // 'pending' | 'generated' | 'published'
+  generatedAt: timestamp('generatedAt'),
+  createdAt: timestamp('createdAt').notNull().defaultNow(),
+  updatedAt: timestamp('updatedAt').notNull().defaultNow(),
+})
+
+export const seoPages = pgTable('seo_pages', {
+  id: serial('id').primaryKey(),
+  slug: text('slug').notNull().unique(),
+  title: text('title').notNull(),
+  subtitle: text('subtitle').notNull(),
+  heroImage: text('heroImage').notNull().default('/images/water-damage.png'),
+  keyword: text('keyword').notNull(),
+  city: text('city').notNull(),
+  serviceCategory: text('serviceCategory').notNull(),
+  description: jsonb('description').notNull().default([]), // string[]
+  benefits: jsonb('benefits').notNull().default([]), // string[]
+  process: jsonb('process').notNull().default([]), // { title: string, description: string }[]
+  faqs: jsonb('faqs').notNull().default([]), // { q: string, a: string }[]
+  relatedServices: jsonb('relatedServices').notNull().default([]), // { name: string, href: string }[]
+  metaTitle: text('metaTitle').notNull(),
+  metaDescription: text('metaDescription').notNull(),
+  status: text('status').notNull().default('published'),
+  dayNumber: integer('dayNumber'),
+  publishedAt: timestamp('publishedAt').defaultNow(),
+  createdAt: timestamp('createdAt').notNull().defaultNow(),
+  updatedAt: timestamp('updatedAt').notNull().defaultNow(),
+})
+
+export const blogPosts = pgTable('blog_posts', {
+  id: serial('id').primaryKey(),
+  slug: text('slug').notNull().unique(),
+  title: text('title').notNull(),
+  excerpt: text('excerpt').notNull(),
+  content: text('content').notNull(),
+  heroImage: text('heroImage').notNull().default('/images/why-choose-us-team.png'),
+  category: text('category').notNull().default('Water Damage & Restoration'),
+  keyword: text('keyword').notNull(),
+  author: text('author').notNull().default('Above & Beyond Restoration Team'),
+  readTime: text('readTime').notNull().default('5 min read'),
+  faqs: jsonb('faqs').notNull().default([]),
+  metaTitle: text('metaTitle').notNull(),
+  metaDescription: text('metaDescription').notNull(),
+  status: text('status').notNull().default('published'),
+  dayNumber: integer('dayNumber'),
+  publishedAt: timestamp('publishedAt').defaultNow(),
+  createdAt: timestamp('createdAt').notNull().defaultNow(),
   updatedAt: timestamp('updatedAt').notNull().defaultNow(),
 })

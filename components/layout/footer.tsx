@@ -119,6 +119,7 @@ export function Footer() {
                 { name: 'Home', href: '/' },
                 { name: 'About Us', href: '/about' },
                 { name: 'Photo Gallery', href: '/gallery' },
+                { name: 'Restoration Blog & Guides', href: '/blog' },
                 { name: 'Contact Us', href: '/contact' },
                 { name: 'Free Estimate', href: '/contact' },
                 { name: 'Insurance Claims Help', href: '/about#insurance' },

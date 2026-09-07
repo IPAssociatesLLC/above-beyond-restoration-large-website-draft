@@ -16,6 +16,7 @@ const pageTitles: Record<string, string> = {
   '/admin/leads': 'Lead Management',
   '/admin/reports': 'Reports & Analytics',
   '/admin/social': 'Social Media Manager',
+  '/admin/seo-content': 'SEO & Content Creator',
   '/admin/notifications': 'Notifications',
   '/admin/settings': 'Settings & Integrations',
 }

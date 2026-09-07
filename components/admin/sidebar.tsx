@@ -21,6 +21,7 @@ import {
   Bell,
   Share2,
   X,
+  Sparkles,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -64,6 +65,11 @@ const navItems = [
     label: 'Reports',
     href: '/admin/reports',
     icon: BarChart3,
+  },
+  {
+    label: 'SEO & Content Creator',
+    href: '/admin/seo-content',
+    icon: Sparkles,
   },
   {
     label: 'Social Media',
