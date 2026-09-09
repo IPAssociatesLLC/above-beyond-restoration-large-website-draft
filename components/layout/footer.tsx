@@ -107,6 +107,13 @@ export function Footer() {
                 </li>
               ))}
             </ul>
+
+            <div className="mt-6">
+              <h4 className="text-white font-bold text-sm uppercase tracking-widest mb-3">Service Areas</h4>
+              <p className="text-white/70 text-sm leading-relaxed">
+                Portland • Salem • Bend/Redmond • Gresham • Oregon Coast & surrounding areas
+              </p>
+            </div>
           </div>
 
           {/* Quick Links */}
@@ -137,13 +144,6 @@ export function Footer() {
                 </li>
               ))}
             </ul>
-
-            <div className="mt-6">
-              <h4 className="text-white font-bold text-sm uppercase tracking-widest mb-3">Service Areas</h4>
-              <p className="text-white/70 text-sm leading-relaxed">
-                Portland • Salem • Bend/Redmond • Gresham • Oregon Coast & surrounding areas
-              </p>
-            </div>
           </div>
 
           {/* Credentials */}
