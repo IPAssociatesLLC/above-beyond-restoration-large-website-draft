@@ -376,11 +376,12 @@ Ensure high semantic density for local AI search and Google organic search. Incl
               updatedAt: new Date(),
             }).where(eq(seoPages.slug, pageData.slug))
           } else {
-            await db.insert(seoPages).values(pageData)
+            const { id: _ignoreId, ...insertData } = pageData
+            await db.insert(seoPages).values(insertData)
           }
         }
       } catch (dbErr) {
-        // Ignored for local memory fallback
+        console.error('[SEO DB Insert Error - seoPages]:', dbErr)
       }
 
       createdPages.push(pageData.slug)
@@ -452,7 +453,8 @@ Write a complete 1,200+ word markdown guide formatted with H2, H3, emergency che
             updatedAt: new Date(),
           }).where(eq(blogPosts.slug, blogData.slug))
         } else {
-          await db.insert(blogPosts).values(blogData)
+          const { id: _ignoreId, ...insertBlogData } = blogData
+          await db.insert(blogPosts).values(insertBlogData)
         }
 
         await db.update(seoContentSchedule).set({
@@ -461,7 +463,7 @@ Write a complete 1,200+ word markdown guide formatted with H2, H3, emergency che
         }).where(eq(seoContentSchedule.dayNumber, dayNumber))
       }
     } catch (dbErr) {
-      // Ignored for local memory fallback
+      console.error('[SEO DB Insert Error - blogPosts]:', dbErr)
     }
 
     createdBlogSlug = blogData.slug
@@ -491,7 +493,7 @@ export async function getAllSeoPages() {
       if (rows && rows.length > 0) return rows
     }
   } catch (err) {
-    // DB offline
+    console.error('[SEO DB Query Error - getAllSeoPages]:', err)
   }
   return globalSeoStore.__seoPages || []
 }
@@ -504,7 +506,7 @@ export async function getAllBlogPosts() {
       if (rows && rows.length > 0) return rows
     }
   } catch (err) {
-    // DB offline
+    console.error('[SEO DB Query Error - getAllBlogPosts]:', err)
   }
   return globalSeoStore.__seoBlogs || []
 }
@@ -517,7 +519,7 @@ export async function getSeoPageBySlug(slug: string) {
       if (rows.length > 0) return rows[0]
     }
   } catch (err) {
-    // DB offline
+    console.error('[SEO DB Query Error - getSeoPageBySlug]:', err)
   }
   return (globalSeoStore.__seoPages || []).find((p) => p.slug === slug) || null
 }
@@ -530,7 +532,7 @@ export async function getBlogPostBySlug(slug: string) {
       if (rows.length > 0) return rows[0]
     }
   } catch (err) {
-    // DB offline
+    console.error('[SEO DB Query Error - getBlogPostBySlug]:', err)
   }
   return (globalSeoStore.__seoBlogs || []).find((b) => b.slug === slug) || null
 }

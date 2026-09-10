@@ -95,6 +95,7 @@ export function Footer() {
                 { name: 'Residential Restoration', href: '/services/residential' },
                 { name: 'Commercial Restoration', href: '/services/commercial' },
                 { name: 'Clean Out & Junk Removal', href: '/services/cleanout' },
+                { name: 'Service Guides', href: '/services/guides' },
               ].map((item) => (
                 <li key={item.name}>
                   <Link
@@ -126,7 +127,7 @@ export function Footer() {
                 { name: 'Home', href: '/' },
                 { name: 'About Us', href: '/about' },
                 { name: 'Photo Gallery', href: '/gallery' },
-                { name: 'Restoration Blog & Guides', href: '/blog' },
+                { name: 'Restoration Blog', href: '/blog' },
                 { name: 'Contact Us', href: '/contact' },
                 { name: 'Free Estimate', href: '/contact' },
                 { name: 'Insurance Claims Help', href: '/about#insurance' },
