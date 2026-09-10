@@ -48,27 +48,37 @@ export default function TermsPage() {
               </p>
             </div>
             <div>
-              <h2 className="text-xl font-bold text-brand-navy mb-3">5. Warranty</h2>
+              <h2 className="text-xl font-bold text-brand-navy mb-3">5. Warranty & Workmanship</h2>
               <p className="text-gray-600 leading-relaxed">
-                Above & Beyond Restoration provides a 1-year warranty on workmanship performed by our crews. This warranty does not cover damage caused by new events, pre-existing conditions outside the scope of work, or client-caused damage.
+                Above & Beyond Restoration provides a 1-year full workmanship warranty on all structural repairs and reconstruction performed by our licensed crew. This warranty does not cover secondary damage caused by new independent loss events, failure of property owner to maintain plumbing/roofing systems, or pre-existing structural defects.
               </p>
             </div>
             <div>
-              <h2 className="text-xl font-bold text-brand-navy mb-3">6. Limitation of Liability</h2>
+              <h2 className="text-xl font-bold text-brand-navy mb-3">6. Payment Processing & Direct Billing</h2>
               <p className="text-gray-600 leading-relaxed">
-                Above & Beyond Restoration&apos;s liability is limited to the amount paid for the specific services in question. We are not liable for indirect, consequential, or incidental damages arising from our services.
+                We accept insurance direct payments, certified checks, ACH wire transfers, and major credit cards. In direct insurance billing arrangements, property owners authorize their insurance carrier to remit payment directly to Above & Beyond Restoration LLC for the approved scope of loss.
               </p>
             </div>
             <div>
-              <h2 className="text-xl font-bold text-brand-navy mb-3">7. Governing Law</h2>
+              <h2 className="text-xl font-bold text-brand-navy mb-3">7. Limitation of Liability</h2>
               <p className="text-gray-600 leading-relaxed">
-                These terms are governed by the laws of the State of Oregon. Any disputes will be resolved in the courts of Washington County, Oregon.
+                Above & Beyond Restoration&apos;s liability is limited to the amount paid for the specific services in question. We are not liable for indirect, consequential, or incidental damages arising from pre-existing environmental hazards not identified prior to mitigation.
               </p>
             </div>
             <div>
-              <h2 className="text-xl font-bold text-brand-navy mb-3">8. Contact</h2>
+              <h2 className="text-xl font-bold text-brand-navy mb-3">8. Governing Law & Dispute Resolution</h2>
               <p className="text-gray-600 leading-relaxed">
-                Above & Beyond Restoration | P.O. Box 542, Sherwood, OR 97140 | 503-608-2930 | CCB #193269
+                These terms and all contractor agreements are governed by and construed in accordance with the laws of the State of Oregon and the Oregon Construction Contractors Board (ORS Chapter 701). Any disputes arising under these terms shall be resolved in the state courts of Washington County or Multnomah County, Oregon.
+              </p>
+            </div>
+            <div>
+              <h2 className="text-xl font-bold text-brand-navy mb-3">9. Company Information & Contractor License</h2>
+              <p className="text-gray-600 leading-relaxed">
+                Above & Beyond Restoration LLC<br />
+                Mailing Address: P.O. Box 542, Sherwood, OR 97140<br />
+                Phone: (503) 608-2930<br />
+                Email: TommyBletcher@gmail.com<br />
+                Oregon CCB License: #262371 (Licensed, Bonded, and Insured)
               </p>
             </div>
           </div>

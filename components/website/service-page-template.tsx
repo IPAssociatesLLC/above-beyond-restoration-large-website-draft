@@ -108,19 +108,46 @@ export function ServicePageTemplate({
                 </div>
               </div>
 
-              {/* FAQs */}
-              <div>
-                <h2 className="text-2xl font-black text-brand-navy mb-5" style={{ fontFamily: 'var(--font-montserrat), Montserrat, sans-serif' }}>
-                  Frequently Asked Questions
-                </h2>
-                <div className="space-y-4">
-                  {faqs.map((faq, i) => (
-                    <div key={i} className="border border-gray-200 rounded-xl p-5">
-                      <h3 className="font-bold text-brand-navy mb-2">{faq.q}</h3>
-                      <p className="text-gray-600 text-sm leading-relaxed">{faq.a}</p>
-                    </div>
-                  ))}
+              {/* Pricing & Timeline Guide (Search-IQ Recommended) */}
+              <div className="bg-gradient-to-br from-brand-navy to-slate-900 text-white rounded-2xl p-8 shadow-sm">
+                <div className="flex items-center gap-2 text-brand-orange text-xs font-bold uppercase tracking-wider mb-2">
+                  <Clock className="w-4 h-4" />
+                  <span>Transparent Pricing & Turnaround Times</span>
                 </div>
+                <h2 className="text-2xl font-black text-white mb-3" style={{ fontFamily: 'var(--font-montserrat), Montserrat, sans-serif' }}>
+                  Restoration Pricing & Timeline Guide
+                </h2>
+                <p className="text-white/80 text-sm leading-relaxed mb-6">
+                  We use industry-standard Xactimate 2025 pricing to ensure full transparency and direct alignment with your insurance adjuster.
+                </p>
+
+                <div className="grid sm:grid-cols-3 gap-4 border-t border-white/10 pt-6">
+                  <div className="bg-white/5 rounded-xl p-4 border border-white/10">
+                    <p className="text-brand-orange text-xs font-bold uppercase">Dispatch Arrival</p>
+                    <p className="text-xl font-black text-white mt-1">90 Minutes</p>
+                    <p className="text-white/60 text-xs mt-1">24/7 on-site emergency response in Portland Metro</p>
+                  </div>
+                  <div className="bg-white/5 rounded-xl p-4 border border-white/10">
+                    <p className="text-brand-orange text-xs font-bold uppercase">Drying Guarantee</p>
+                    <p className="text-xl font-black text-white mt-1">3–5 Days</p>
+                    <p className="text-white/60 text-xs mt-1">5-day maximum dryout fee guarantee on clean water</p>
+                  </div>
+                  <div className="bg-white/5 rounded-xl p-4 border border-white/10">
+                    <p className="text-brand-orange text-xs font-bold uppercase">Insurance Billing</p>
+                    <p className="text-xl font-black text-white mt-1">100% Direct</p>
+                    <p className="text-white/60 text-xs mt-1">We bill your carrier directly with zero upfront fees</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* FAQs with Interactive Accordion and FAQPage Schema */}
+              <div>
+                <FaqAccordion
+                  title={`${title} FAQs`}
+                  subtitle={`Common questions regarding ${title.toLowerCase()}, insurance claims, and emergency response in Portland, OR.`}
+                  faqs={faqs}
+                  badge="Service FAQs"
+                />
               </div>
             </div>
 
@@ -152,11 +179,11 @@ export function ServicePageTemplate({
                   {[
                     '90-Minute Response Time',
                     'IICRC Certified Technicians',
-                    'Free Estimates',
-                    'Direct Insurance Billing',
+                    'Free Estimates & Thermal Moisture Scans',
+                    'Direct Insurance Billing via Xactimate',
                     '100% Satisfaction Guarantee',
-                    'Licensed, Bonded & Insured',
-                    '1 Year Full Warranty',
+                    'Licensed, Bonded & Insured (CCB #262371)',
+                    '1 Year Full Warranty on Reconstruction',
                   ].map((item) => (
                     <li key={item} className="flex items-center gap-2 text-sm text-gray-700">
                       <CheckCircle className="w-4 h-4 text-brand-orange flex-shrink-0" />
@@ -181,10 +208,10 @@ export function ServicePageTemplate({
                 </ul>
               </div>
 
-              {/* Contact Info */}
+              {/* Contact Info with Verified CCB */}
               <div className="bg-brand-orange/10 border border-brand-orange/30 rounded-2xl p-5 text-center">
-                <p className="text-brand-navy font-bold text-sm mb-1">P.O. Box 542, Sherwood, OR</p>
-                <p className="text-gray-600 text-xs">CCB #193269 | Licensed, Bonded, Insured</p>
+                <p className="text-brand-navy font-bold text-sm mb-1">P.O. Box 542, Sherwood, OR 97140</p>
+                <p className="text-gray-700 text-xs font-semibold">Oregon CCB #262371 | Licensed, Bonded, Insured</p>
               </div>
             </div>
           </div>

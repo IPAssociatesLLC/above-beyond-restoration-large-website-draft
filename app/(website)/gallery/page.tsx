@@ -4,6 +4,7 @@ import { useState } from 'react'
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import { X, ZoomIn } from 'lucide-react'
+import { FaqAccordion } from '@/components/website/faq-accordion'
 
 const categories = ['All', 'Water Damage', 'Fire Damage', 'Mold Remediation', 'Smoke Damage', 'Demolition', 'Commercial']
 
@@ -101,6 +102,26 @@ export default function GalleryPage() {
           </div>
         </div>
       </section>
+
+      {/* Gallery & Documentation FAQs */}
+      <FaqAccordion
+        title="Project Documentation FAQs"
+        subtitle="How we photograph, map, and document your property damage for insurance claim validation."
+        faqs={[
+          {
+            q: 'How do you document damage for my insurance company?',
+            a: 'Our technicians take comprehensive high-resolution wide-angle and close-up photographs, accompanied by thermal infrared moisture mapping scans and daily dry-log humidity readings.',
+          },
+          {
+            q: 'Will you photograph hidden moisture behind walls and under floors?',
+            a: 'Yes. We utilize FLIR thermal imaging cameras and penetrative moisture probes to document trapped moisture inside wall cavities, ceiling voids, and subflooring without invasive destruction.',
+          },
+          {
+            q: 'Can I get copies of all project photos for my records?',
+            a: 'Absolutely. We provide homeowners and business owners with a complete digital portfolio of all pre-mitigation, in-progress, and post-restoration clearance photos.',
+          },
+        ]}
+      />
 
       {/* Lightbox */}
       {lightbox && (

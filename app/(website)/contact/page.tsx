@@ -262,6 +262,50 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
+
+      {/* Immediate Emergency Action FAQs */}
+      <section className="py-16 bg-white border-t border-gray-100">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <div className="text-center mb-10">
+            <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-orange-100 text-brand-orange mb-3">
+              Emergency Action Plan
+            </span>
+            <h2 className="text-3xl font-black text-brand-navy mb-2" style={{ fontFamily: 'var(--font-montserrat), Montserrat, sans-serif' }}>
+              What to Do While Waiting for Our Team to Arrive
+            </h2>
+            <p className="text-gray-600 text-sm max-w-xl mx-auto">
+              Follow these critical safety steps within the first 15–30 minutes to minimize structural damage and protect your insurance claim.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="bg-gray-50 rounded-2xl p-6 border border-gray-100">
+              <h3 className="font-bold text-brand-navy text-base mb-2">1. Prioritize Electrical & Personal Safety</h3>
+              <p className="text-gray-600 text-sm leading-relaxed">
+                Never enter standing water if electrical outlets, appliances, or extension cords are submerged. If safely accessible, turn off the main electrical breaker.
+              </p>
+            </div>
+            <div className="bg-gray-50 rounded-2xl p-6 border border-gray-100">
+              <h3 className="font-bold text-brand-navy text-base mb-2">2. Stop the Water Source Immediately</h3>
+              <p className="text-gray-600 text-sm leading-relaxed">
+                Locate your main water shut-off valve (often in the basement, garage, or front yard meter box) and turn clockwise until closed.
+              </p>
+            </div>
+            <div className="bg-gray-50 rounded-2xl p-6 border border-gray-100">
+              <h3 className="font-bold text-brand-navy text-base mb-2">3. Take Photos Before Discarding Anything</h3>
+              <p className="text-gray-600 text-sm leading-relaxed">
+                Take high-resolution photos and video of all standing water, water marks on drywall, and affected personal property for insurance documentation.
+              </p>
+            </div>
+            <div className="bg-gray-50 rounded-2xl p-6 border border-gray-100">
+              <h3 className="font-bold text-brand-navy text-base mb-2">4. Direct Insurance Claims Handling</h3>
+              <p className="text-gray-600 text-sm leading-relaxed">
+                Do not stress about filing alone. Our team works directly with your insurance adjuster using standard Xactimate pricing to ensure full coverage.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
     </>
   )
 }

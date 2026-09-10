@@ -2,19 +2,20 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Shield, Award, Clock, CheckCircle, Phone, DollarSign, Star } from 'lucide-react'
+import { FaqAccordion } from '@/components/website/faq-accordion'
 
 export const metadata: Metadata = {
   title: 'About Us | Above & Beyond Restoration Portland OR',
-  description: 'Learn about Above & Beyond Restoration — Portland\'s IICRC certified restoration experts. 24/7 emergency service, 90-minute response, licensed and insured. CCB #193269.',
+  description: 'Learn about Above & Beyond Restoration — Portland\'s IICRC certified restoration experts. 24/7 emergency service, 90-minute response, licensed and insured. CCB #262371.',
 }
 
 const certifications = [
   { label: 'IICRC Certified', sub: 'Institute of Inspection, Cleaning and Restoration' },
   { label: 'Xactimate Certified', sub: 'Industry-standard damage estimating software' },
-  { label: 'CCB #193269', sub: 'Oregon Construction Contractors Board' },
-  { label: 'Licensed, Bonded & Insured', sub: 'Full coverage for your peace of mind' },
+  { label: 'CCB #262371', sub: 'Oregon Construction Contractors Board (Licensed, Bonded & Insured)' },
+  { label: 'Licensed, Bonded & Insured', sub: 'Full $2M liability coverage for your peace of mind' },
   { label: '100% Satisfaction Guarantee', sub: 'We stand behind every job we do' },
-  { label: '1 Year Full Warranty', sub: 'On all restoration work performed' },
+  { label: '1 Year Full Warranty', sub: 'On all restoration and reconstruction work' },
 ]
 
 const processSteps = [
@@ -218,6 +219,26 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+
+      {/* About FAQs */}
+      <FaqAccordion
+        title="About Our Services & Credentials"
+        subtitle="Learn more about our certifications, insurance processes, and warranty guarantees."
+        faqs={[
+          {
+            q: 'How does Above & Beyond advocate for me during an insurance claim?',
+            a: 'We document all moisture readings with infrared thermal cameras, create an itemized scope using Xactimate (the exact estimating software insurance adjusters use), and communicate directly with your insurance company to make sure the claim is approved properly.',
+          },
+          {
+            q: 'What is your Oregon contractor license number?',
+            a: 'Above & Beyond Restoration is licensed with the Oregon Construction Contractors Board under CCB #262371, fully bonded and insured with $2,000,000 in comprehensive general liability coverage.',
+          },
+          {
+            q: 'Do you offer a warranty on reconstruction and repairs?',
+            a: 'Yes. We provide a 1-year full workmanship warranty on all structural repairs and reconstruction performed by our licensed crew.',
+          },
+        ]}
+      />
     </>
   )
 }
