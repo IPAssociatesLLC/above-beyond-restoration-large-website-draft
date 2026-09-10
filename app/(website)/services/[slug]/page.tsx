@@ -3,6 +3,9 @@ import { notFound } from 'next/navigation'
 import { getSeoPageBySlug } from '@/app/actions/seo-content'
 import { ServicePageTemplate } from '@/components/website/service-page-template'
 
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 interface PageProps {
   params: Promise<{ slug: string }>
 }

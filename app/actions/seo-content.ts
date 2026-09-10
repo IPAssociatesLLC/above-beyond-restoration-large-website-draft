@@ -469,7 +469,10 @@ Write a complete 1,200+ word markdown guide formatted with H2, H3, emergency che
     createdBlogSlug = blogData.slug
 
     revalidatePath('/services')
+    revalidatePath('/services/guides')
+    revalidatePath('/services/[slug]', 'page')
     revalidatePath('/blog')
+    revalidatePath('/blog/[slug]', 'page')
     revalidatePath('/sitemap.xml')
     revalidatePath('/admin/seo-content')
 

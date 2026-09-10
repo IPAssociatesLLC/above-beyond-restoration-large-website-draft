@@ -4,6 +4,9 @@ import Image from 'next/image'
 import { getAllBlogPosts } from '@/app/actions/seo-content'
 import { Clock, User, ArrowRight, BookOpen, Shield, Phone } from 'lucide-react'
 
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 export const metadata: Metadata = {
   title: 'Restoration Blog & Guides | Above & Beyond Restoration',
   description: 'Expert property restoration advice, disaster mitigation guides, and emergency tips for homeowners and businesses in Portland, OR.',

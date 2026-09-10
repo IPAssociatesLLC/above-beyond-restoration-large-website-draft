@@ -5,6 +5,9 @@ import Image from 'next/image'
 import { getBlogPostBySlug, getAllBlogPosts } from '@/app/actions/seo-content'
 import { Clock, User, Phone, CheckCircle, ArrowRight, Shield, Calendar } from 'lucide-react'
 
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 interface PageProps {
   params: Promise<{ slug: string }>
 }
