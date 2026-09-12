@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { Phone, CheckCircle, ArrowRight, Clock } from 'lucide-react'
+import { FaqAccordion } from '@/components/website/faq-accordion'
 
 interface ServicePageProps {
   title: string

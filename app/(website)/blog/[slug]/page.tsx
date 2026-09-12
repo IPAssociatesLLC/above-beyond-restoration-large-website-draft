@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
+import React from 'react'
 import { getBlogPostBySlug, getAllBlogPosts } from '@/app/actions/seo-content'
 import { Clock, User, Phone, CheckCircle, ArrowRight, Shield, Calendar } from 'lucide-react'
 
@@ -37,8 +38,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 // Inline parser for bold and markdown hyperlinks
-function parseInlineMarkdown(text: string) {
-  // First handle [link text](url)
+function parseInlineMarkdown(text: string): React.ReactNode {
   const linkRegex = /\[(.*?)\]\((.*?)\)/g
   const parts: (string | React.ReactNode)[] = []
   let lastIndex = 0
@@ -52,7 +52,7 @@ function parseInlineMarkdown(text: string) {
     const href = match[2]
     parts.push(
       <Link
-        key={match.index}
+        key={`link-${match.index}`}
         href={href}
         className="text-brand-orange font-bold hover:underline"
       >
@@ -65,13 +65,16 @@ function parseInlineMarkdown(text: string) {
     parts.push(text.substring(lastIndex))
   }
 
-  // Handle **bold**
-  return parts.map((part, pIdx) => {
-    if (typeof part !== 'string') return part
+  return parts.flatMap((part, pIdx) => {
+    if (typeof part !== 'string') return [part]
     const boldParts = part.split(/(\*\*.*?\*\*)/)
     return boldParts.map((bPart, bIdx) => {
       if (bPart.startsWith('**') && bPart.endsWith('**')) {
-        return <strong key={`${pIdx}-${bIdx}`} className="font-bold text-brand-navy">{bPart.slice(2, -2)}</strong>
+        return (
+          <strong key={`b-${pIdx}-${bIdx}`} className="font-bold text-brand-navy">
+            {bPart.slice(2, -2)}
+          </strong>
+        )
       }
       return bPart
     })
