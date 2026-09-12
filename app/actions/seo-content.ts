@@ -144,57 +144,116 @@ export async function resetScheduleToDefault(): Promise<{ ok: boolean; message: 
   return await saveSchedule(DEFAULT_30_DAY_STRATEGY)
 }
 
-// Fallback high-quality template generator in case AI API key is not present or rate limited
+// City-specific housing construction and environmental dynamics for high-ranking localized content
+function getCityArchitecturalContext(city: string): {
+  neighborhoodTraits: string
+  plumbingVulnerability: string
+  weatherFactor: string
+  commonLossScenario: string
+} {
+  const c = city.toLowerCase()
+  if (c.includes('beaverton')) {
+    return {
+      neighborhoodTraits: '1960s to 1980s ranch and split-level homes across Cedar Hills and Murrayhill, many built on concrete slab foundations with embedded copper lines',
+      plumbingVulnerability: 'underslab copper pinhole leaks and aging water heater supply connections in finished single-level basements',
+      weatherFactor: 'seasonal high groundwater and saturated soil conditions near Fanno Creek greenways during extended November through March rains',
+      commonLossScenario: 'unnoticed slab leaks migrating beneath laminate and engineered hardwood flooring into adjacent drywall base plates',
+    }
+  }
+  if (c.includes('tigard') || c.includes('tualatin')) {
+    return {
+      neighborhoodTraits: 'mix of 1970s suburban developments and contemporary multi-story residences near the Tualatin River basin and Bull Mountain slopes',
+      plumbingVulnerability: 'sump pump mechanical failures during heavy storm power surges, crawlspace moisture barrier deterioration, and polybutylene piping',
+      weatherFactor: 'shallow water tables and severe winter rainfall causing hydrostatic pressure against foundation stem walls',
+      commonLossScenario: 'crawlspace standing water entering HVAC floor ducting and causing secondary microbial spores in subfloors',
+    }
+  }
+  if (c.includes('hillsboro') || c.includes('aloha')) {
+    return {
+      neighborhoodTraits: 'rapidly expanding residential master-planned subdivisions, high-density townhome developments, and modern two-story family homes',
+      plumbingVulnerability: 'upper-level PEX fitting failures, washing machine braided stainless line bursts, and high-pressure tankless water heater valve leaks',
+      weatherFactor: 'open valley frost exposure during sub-freezing winter Arctic fronts followed by rapid warming cycles',
+      commonLossScenario: 'second-story bathroom supply line ruptures cascading down through ceiling drywall into main-level open concept living spaces',
+    }
+  }
+  if (c.includes('lake oswego') || c.includes('west linn')) {
+    return {
+      neighborhoodTraits: 'custom hillside estates, multi-level luxury properties, and older lakeside cottages with intricate multilevel framing and finished daylight basements',
+      plumbingVulnerability: 'complex multi-zone radiant floor heating line failures, hillside groundwater infiltration, and premium hardwood subfloor saturation',
+      weatherFactor: 'steep terrain stormwater runoff and high humidity levels surrounding Oswego Lake and the Willamette River corridor',
+      commonLossScenario: 'subsurface water penetration behind downhill retaining foundation walls requiring specialized non-invasive structural drying',
+    }
+  }
+  if (c.includes('gresham') || c.includes('troutdale')) {
+    return {
+      neighborhoodTraits: 'established East County neighborhoods, mid-century daylight ranches, and properties directly exposed to the Columbia River Gorge wind corridor',
+      plumbingVulnerability: 'exterior wall pipe freeze-ups, hose bib ruptures within siding cavities, and attic plumbing line freezing during sub-zero gorge winds',
+      weatherFactor: 'severe winter east winds bringing prolonged sub-freezing temperatures followed by rapid post-freeze thaws',
+      commonLossScenario: 'exterior wall copper pipe splits thawing unnoticed during working hours, flooding main floor living areas and crawlspaces',
+    }
+  }
+  // Default Portland Proper (NE/SE/NW/SW)
+  return {
+    neighborhoodTraits: 'historic 1910s to 1940s Craftsman bungalows, classic Victorian homes, and mid-century residences across Hawthorne, Laurelhurst, Sellwood, and the West Hills',
+    plumbingVulnerability: 'unreinforced masonry daylight basements, gravity storm drain backups, galvanized supply piping, and aging clay sewer laterals',
+    weatherFactor: 'frequent atmospheric river storm cycles delivering multi-day rainfall that saturates older foundation footings and gravity drainage networks',
+    commonLossScenario: 'perimeter basement foundation seepage, sewer line backups during storm surges, and hidden bathroom plumbing leaks behind lath and plaster walls',
+  }
+}
+
+// Fallback high-quality localized template generator in case AI API key is not present or rate limited
 function generateDeterministicServicePage(keyword: string, city: string, theme: string, dayNumber: number) {
   const slug = slugify(`${keyword}-${city}`)
+  const geo = getCityArchitecturalContext(city)
+
   return {
     id: Date.now() + Math.floor(Math.random() * 1000),
     slug,
     title: keyword,
-    subtitle: `24/7 Emergency restoration response in ${city} and surrounding areas. IICRC certified technicians, 90-minute arrival, and direct insurance billing.`,
+    subtitle: `24/7 Rapid-response emergency mitigation and restoration in ${city}, OR. IICRC S500 certified technicians, 90-minute arrival, and direct insurance billing.`,
     heroImage: '/images/water-damage.png',
     keyword,
     city,
     serviceCategory: 'Water Damage Restoration',
     description: [
-      `Above & Beyond Restoration is ${city}'s premier property restoration company, delivering fast, certified emergency service for residential and commercial properties experiencing ${keyword.toLowerCase()}. Our technicians are on call 24 hours a day, 365 days a year, with a guaranteed 90-minute response time.`,
-      `When dealing with ${keyword.toLowerCase()}, every minute counts. Standing moisture quickly penetrates deep into subflooring, drywall, and structural framing, fostering hazardous mold growth in as little as 24 to 48 hours. Using commercial-grade thermal imaging cameras, moisture meters, and industrial dehumidifiers, we thoroughly extract water and dry out affected materials.`,
-      `We advocate directly for property owners by documenting every phase of the mitigation using industry-standard Xactimate pricing. We bill your insurance carrier directly, taking the stress out of claims while protecting your property from secondary structural damage.`,
+      `When property owners in ${city} experience an emergency requiring **${keyword.toLowerCase()}**, prompt certified mitigation is essential to avoid permanent structural degradation. Above & Beyond Restoration delivers 24/7/365 emergency response with an on-site arrival guarantee of **90 minutes or less**. In ${city}, homes characterized by ${geo.neighborhoodTraits} are particularly susceptible to ${geo.commonLossScenario}. Our rapid extraction protocols halt water migration before secondary mold growth develops.`,
+      `Managing structural restoration in ${city} demands specialized familiarity with regional construction methods. Whether dealing with ${geo.plumbingVulnerability} or mitigating exterior water intrusion caused by ${geo.weatherFactor}, our IICRC-certified crews deploy commercial thermal infrared cameras, penetrating moisture meters, and industrial Low-Grain Refrigerant (LGR) dehumidifiers. For extensive restoration needs, explore our comprehensive [Portland water damage restoration](/services/water-damage) and [certified mold remediation](/services/mold-remediation) capabilities.`,
+      `We advocate directly for property owners by documenting all moisture readings and structural damage using industry-standard Xactimate pricing. We bill your insurance carrier directly, eliminating out-of-pocket stress. Backed by our **5-Day Maximum Dry-Out Policy** on clean water losses and a **1-Year Full Workmanship Warranty** ([Oregon CCB #262371](/about)), your property is restored to pre-loss dry standard with complete peace of mind. For full regional coverage, browse our [service guides directory](/services/guides) or request a [free on-site estimate](/contact).`,
     ],
     benefits: [
       '5-Day Maximum Dry-Out Charge on Clean Water',
-      '90-Minute Emergency Dispatch in ' + city,
-      'IICRC S500 / S520 Certified Technicians',
+      `90-Minute Guaranteed Emergency Dispatch in ${city}`,
+      'IICRC S500 / S520 Certified Master Technicians',
       'Direct Insurance Billing & Xactimate Scoping',
-      'Thermal Imaging & Non-Invasive Moisture Mapping',
-      'Industrial Air Movers & LGR Dehumidifiers',
-      'Hospital-Grade Antimicrobial Sanitization',
-      '100% Satisfaction Guarantee & 1-Year Work Warranty',
+      'FLIR Thermal Imaging & Non-Invasive Moisture Mapping',
+      'High-Velocity Air Movers & Commercial LGR Dehumidifiers',
+      'EPA-Registered Botanical Antimicrobial Sanitization',
+      '100% Satisfaction Guarantee & 1-Year Workmanship Warranty',
     ],
     process: [
-      { title: 'Emergency Dispatch & Immediate Arrival', description: `Our rapid response team arrives at your ${city} property within 90 minutes equipped for immediate water mitigation.` },
-      { title: 'Thermal Moisture Inspection', description: 'We map all affected areas using infrared thermal imaging cameras and calibrated penetrative moisture meters.' },
-      { title: 'High-Volume Water Extraction', description: 'Truck-mounted and industrial submersible extractors remove standing water quickly from carpet, hardwood, and concrete.' },
-      { title: 'Controlled Structural Drying', description: 'Strategic placement of high-velocity air movers and commercial dehumidifiers to return humidity and structural moisture to pre-loss dry standard.' },
-      { title: 'Antimicrobial Treatment & Odor Removal', description: 'Application of EPA-registered botanical antimicrobials to eliminate bacteria, prevent toxic mold spores, and purify indoor air.' },
+      { title: 'Emergency Dispatch & Immediate Arrival', description: `Our rapid response team arrives at your ${city} property within 90 minutes equipped with truck-mounted and submersible extraction systems.` },
+      { title: 'Thermal Moisture Mapping & Psychrometric Profiling', description: `We inspect all affected areas using infrared thermal imaging cameras and penetrative probes to detect trapped moisture behind drywall and subflooring common in ${city} homes.` },
+      { title: 'High-Volume Water Extraction', description: 'Industrial extractors remove standing water quickly from carpet, pad, subfloor, and concrete foundation slabs.' },
+      { title: 'Controlled Structural Drying', description: 'Strategic placement of commercial LGR dehumidifiers and high-velocity air movers to restore relative humidity and structural materials to dry standards.' },
+      { title: 'Antimicrobial Sanitization & Odor Control', description: 'Application of hospital-grade, EPA-registered botanical antimicrobials to eliminate bacteria and prevent hazardous fungal spore germination.' },
       { title: 'Final Moisture Clearance & Insurance Sign-Off', description: 'Comprehensive dry-log verification confirming 100% moisture removal, followed by insurance documentation submittal.' },
     ],
     faqs: [
       {
-        q: `How quickly can you arrive in ${city} for ${keyword}?`,
-        a: `We provide guaranteed 24/7 emergency dispatch across ${city} and the entire Portland metro area, arriving on-site within 90 minutes or less.`,
+        q: `How quickly can Above & Beyond arrive in ${city} for ${keyword.toLowerCase()}?`,
+        a: `We maintain 24/7 on-call emergency crews throughout the Portland metro area, guaranteeing on-site arrival in ${city} within 90 minutes or less with full extraction equipment.`,
       },
       {
-        q: 'Will homeowners or commercial property insurance cover this restoration?',
-        a: 'Yes, most property insurance policies cover sudden and accidental water, mold, fire, and storm damage. We handle the entire claims process and bill your insurer directly.',
+        q: `What unique property risks affect ${city} homes during water emergencies?`,
+        a: `In ${city}, properties often experience ${geo.commonLossScenario} due to ${geo.weatherFactor}. Our technicians are specifically trained in localized building construction to address these unique structural vulnerabilities without unnecessary demolition.`,
       },
       {
-        q: 'How do you ensure mold will not grow after water damage?',
-        a: 'We strictly adhere to IICRC S500 and S520 standards, deploying industrial desiccant dehumidifiers and applying hospital-grade EPA antimicrobial sanitizers within the critical first 24-48 hours.',
+        q: 'Will my homeowners or commercial property insurance cover this restoration?',
+        a: 'Yes. Most property insurance policies cover sudden and accidental water losses. We handle all documentation, photograph moisture readings, scope the project in Xactimate, and bill your insurance company directly.',
       },
       {
-        q: 'What is your 5-Day Dry-Out Guarantee?',
-        a: 'For clean water losses, we cap our dry-out equipment charges at a maximum of 5 days, ensuring fast, efficient drying without unnecessary costs for you or your insurance carrier.',
+        q: 'What is your 5-Day Maximum Dry-Out Guarantee?',
+        a: 'For Category 1 clean water losses, we cap our drying equipment run charges at a maximum of 5 days, ensuring fast, effective structural drying without inflated costs for you or your insurance carrier.',
       },
     ],
     relatedServices: [
@@ -203,21 +262,27 @@ function generateDeterministicServicePage(keyword: string, city: string, theme: 
       { name: 'Fire Damage Restoration', href: '/services/fire-damage' },
       { name: 'Demolition Services', href: '/services/demolition' },
     ],
-    metaTitle: `${keyword} | Above & Beyond Restoration`,
-    metaDescription: `24/7 emergency ${keyword.toLowerCase()} in ${city}. 90-minute response, IICRC certified, direct insurance billing. Call 503-608-2930 now.`,
+    metaTitle: `${keyword} in ${city}, OR | 24/7 Response`,
+    metaDescription: `24/7 emergency ${keyword.toLowerCase()} in ${city}, OR. 90-min response, IICRC certified, direct insurance billing. Call 503-608-2930.`,
     dayNumber,
     createdAt: new Date(),
     updatedAt: new Date(),
   }
 }
 
-function generateDeterministicBlogPost(keyword: string, title: string, city: string, theme: string, dayNumber: number) {
+function generateDeterministicBlogPost(keyword: string, title: string, city: string, theme: string, dayNumber: number, relatedPageSlugs: string[] = []) {
   const slug = slugify(title)
+  const geo = getCityArchitecturalContext(city)
+
+  const serviceLinksMarkdown = relatedPageSlugs.length > 0
+    ? relatedPageSlugs.map((s) => `- **[${s.replace(/-/g, ' ').toUpperCase()}](/services/${s})** — 24/7 rapid response and professional moisture mitigation`).join('\n')
+    : `- **[Emergency Water Extraction in ${city}](/services/water-damage)**\n- **[Certified Mold Remediation in ${city}](/services/mold-remediation)**\n- **[Emergency Structural Demolition](/services/demolition)**`
+
   return {
     id: Date.now() + Math.floor(Math.random() * 1000),
     slug,
     title,
-    excerpt: `Experiencing a property emergency in ${city}? Learn the essential steps to protect your structure, prevent toxic mold growth, and navigate insurance claims effectively.`,
+    excerpt: `Experiencing a property emergency in ${city}? Learn the essential steps to protect your structure, navigate insurance claims, and prevent mold growth in Pacific Northwest homes.`,
     category: 'Water Damage & Restoration',
     keyword,
     author: 'Tommy Bletcher — Certified Restoration Specialist',
@@ -225,62 +290,77 @@ function generateDeterministicBlogPost(keyword: string, title: string, city: str
     content: `
 # ${title}
 
-When disaster strikes your home or commercial building in ${city}, immediate action is the single most important factor determining whether your property can be saved or suffers irreversible structural damage. At **Above & Beyond Restoration**, our IICRC-certified team responds 24/7 across the Portland metro area within **90 minutes or less**.
+When a sudden water intrusion or disaster strikes your property in ${city}, taking immediate, methodical action is the single most critical factor determining whether building materials can be saved or suffer irreversible structural failure. At **Above & Beyond Restoration** (CCB #262371), our IICRC-certified crews provide 24/7 emergency response across the Portland metropolitan area with a guaranteed **90-minute on-site response time**.
+
+In ${city}, residential and commercial properties characterized by ${geo.neighborhoodTraits} face heightened vulnerability to ${geo.commonLossScenario}. Understanding the physical dynamics of moisture migration in the Pacific Northwest allows property owners to mitigate damage before hazardous mold colonies establish.
 
 ---
 
-## Why the First 24 to 48 Hours Are Critical
+## Why the First 24 to 48 Hours Are Critical in Oregon
 
-Water is relentless. Within the first hour of a pipe burst, appliance leak, or storm flood, water spreads into drywall, baseboards, carpeting, and porous subfloors. 
+Water damage behaves aggressively in our damp climate. Within the first hour of a pipe burst, appliance leak, or groundwater surge caused by ${geo.weatherFactor}, moisture penetrates deep into subfloors, wall studs, and insulation cavities.
 
-Key timelines you must know:
-- **Within 1–24 Hours:** Water saturates porous materials, causes drywall to sag, and begins swelling hardwood floor planks.
-- **Within 24–48 Hours:** Fungi and mold spores begin germinating on damp organic building materials.
-- **Within 48–72 Hours:** Secondary damage accelerates; structural integrity weakens, and bio-contaminants proliferate.
+Key degradation timelines:
+- **Within 1–24 Hours:** Drywall absorbs moisture through capillary action, causing paint bubbling, baseboard warping, and hardwood floor plank cupping.
+- **Within 24–48 Hours:** Fungi and mold spores begin active germination on damp organic building materials when indoor relative humidity exceeds 60%.
+- **Within 48–72 Hours:** Secondary damage accelerates; structural framing weakens, drywall sags, and bio-contaminants proliferate.
 
-> **Emergency Tip:** If you have active water pouring into your property, locate your main water shut-off valve immediately and turn it clockwise until fully closed. Then call Above & Beyond Restoration at **[503-608-2930](tel:5036082930)**.
+> **Emergency Tip:** If you have active water pouring into your property, locate your main shut-off valve immediately and turn it clockwise until closed. Then call Above & Beyond Restoration at **[503-608-2930](tel:5036082930)** for immediate extraction.
 
 ---
 
 ## 5 Essential Steps to Take Right Now
 
-1. **Ensure Electrical Safety:** Never walk into standing water if electrical outlets or appliances are submerged. Switch off the main breaker if safely accessible.
-2. **Stop the Water Source:** Shut off the water main or individual appliance supply line.
-3. **Document the Damage for Insurance:** Before discarding or moving wet items, take high-resolution photos and video of all standing water, water lines on walls, and damaged belongings.
-4. **Call a Certified Restoration Company:** Consumer fans and household shop vacs cannot extract trapped moisture from wall cavities and subfloors. Industrial-grade LGR dehumidifiers and air movers are required.
-5. **Notify Your Insurance Carrier:** File a claim notice and inform them that **Above & Beyond Restoration** (CCB #262371) is performing the emergency structural drying.
+1. **Ensure Electrical & Personal Safety:** Never step into standing water if electrical outlets or appliances are submerged. If safely accessible, switch off the main electrical breaker.
+2. **Stop the Water Source:** Shut off the main water valve or supply line leading to the affected fixture.
+3. **Document the Damage for Insurance:** Before moving wet belongings, photograph and video all standing water, waterlines on drywall, and affected property.
+4. **Call a Certified Restoration Company:** Household box fans and shop vacuums cannot extract trapped subfloor moisture. Professional Low-Grain Refrigerant (LGR) dehumidifiers and thermal imaging are required.
+5. **Notify Your Insurance Carrier:** Report the loss and inform them that **Above & Beyond Restoration** is handling the emergency structural mitigation under industry-standard Xactimate pricing.
 
 ---
 
-## How Above & Beyond Restoration Protects Your Investment
+## Localized Emergency Services & Coverage in ${city}
 
-Our certified restoration protocol ensures complete recovery with minimal disruption:
-- **90-Minute Emergency Arrival:** We dispatch immediate extraction crews anywhere in ${city} and surrounding areas.
-- **5-Day Maximum Dryout Policy:** We do not inflate drying times; on clean water jobs, equipment charges are capped at 5 days.
-- **Direct Insurance Billing:** We submit detailed line-item scopes using Xactimate pricing directly to your adjuster.
-- **1-Year Warranty:** We stand behind all completed mitigation and reconstruction work.
+If you need immediate emergency mitigation in ${city} or surrounding communities, our specialized local response teams are on standby:
+
+${serviceLinksMarkdown}
+
+For comprehensive parent service overviews, learn more about our [Portland water damage restoration services](/services/water-damage), our certified [mold remediation procedures](/services/mold-remediation), or explore our complete [service guides directory](/services/guides).
+
+---
+
+## How Above & Beyond Restoration Protects Your Property
+
+- **90-Minute Emergency Dispatch:** Immediate extraction crews dispatched across ${city} and Portland Metro.
+- **5-Day Maximum Dry-Out Guarantee:** We never artificially extend drying cycles; on clean water losses, equipment fees are capped at 5 days.
+- **100% Direct Insurance Billing:** We submit detailed line-item scopes using Xactimate pricing directly to your adjuster.
+- **1-Year Workmanship Warranty:** We stand behind all completed mitigation and reconstruction work.
 
 ---
 
 ## Frequently Asked Questions
 
-### Can my wet hardwood floors be saved without replacement?
-In many cases, yes. By deploying specialized high-pressure injection mat drying systems that pull moisture directly out of hardwood planks and the subfloor beneath, we frequently save expensive hardwood flooring from cupping and permanent replacement.
+### How quickly can Above & Beyond respond to an emergency in ${city}?
+Our emergency crews are on call 24 hours a day, 365 days a year, with a guaranteed arrival time of 90 minutes or less anywhere in ${city} and the greater Portland metropolitan area.
 
-### Will insurance cover mold remediation if it started after a leak?
-If mold developed as a direct result of a covered sudden and accidental water loss (such as a burst pipe), insurance policies generally cover the associated mold remediation and structural repairs.
+### Can water-damaged hardwood floors be dried without replacement?
+In many cases, yes. By utilizing specialized high-pressure injection mat drying systems that draw moisture out of the hardwood planks and subfloor, we frequently save hardwood floors from permanent replacement.
 
-### How do I schedule an emergency inspection in ${city}?
-Call our 24/7 dispatch hotline directly at **503-608-2930** or use our [Online Estimate Form](/contact).
+### How do you handle insurance billing for restoration?
+We work directly with all major insurance carriers, documenting all moisture levels and damage in Xactimate software to ensure smooth, direct claim settlement with zero hassle for the homeowner.
     `,
     faqs: [
       {
         q: `What should I do first during a water leak in ${city}?`,
-        a: 'Turn off the main water valve immediately, ensure electrical safety by shutting off power to affected rooms, and call 503-608-2930 for 90-minute emergency extraction.',
+        a: `Turn off the main water shut-off valve immediately, turn off electrical power if safe to do so, and call 503-608-2930 for 90-minute emergency extraction in ${city}.`,
+      },
+      {
+        q: `Why are ${city} homes uniquely susceptible to water damage?`,
+        a: `Properties in ${city} often feature ${geo.neighborhoodTraits}, making them vulnerable to ${geo.commonLossScenario} during ${geo.weatherFactor}. Prompt professional structural drying prevents costly secondary structural repairs.`,
       },
       {
         q: 'How does Above & Beyond bill insurance for property restoration?',
-        a: 'We document all damage with moisture logs, thermal imaging, and Xactimate line-item estimates, then submit claims directly to your insurance company so you do not pay out-of-pocket for covered losses.',
+        a: 'We document all damage with thermal imaging and psychrometric moisture logs, then submit itemized Xactimate estimates directly to your insurance company so you do not pay out-of-pocket for covered losses.',
       },
     ],
     metaTitle: `${title} | Above & Beyond Blog`,
@@ -307,6 +387,7 @@ export async function generateDayContent(dayNumber: number): Promise<{
 
   const createdPages: string[] = []
   let createdBlogSlug = ''
+  const geo = getCityArchitecturalContext(dayItem.targetCity)
 
   try {
     // 1. Generate 3 Landing Pages
@@ -319,9 +400,27 @@ export async function generateDayContent(dayNumber: number): Promise<{
           const { output } = await generateText({
             model: 'google/gemini-2.5-flash',
             output: Output.object({ schema: servicePageAiSchema }),
-            prompt: `You are the lead SEO and restoration expert for Above & Beyond Restoration (Portland, OR metro, CCB #262371, Phone 503-608-2930, 90-min emergency response, 5-day max dryout charge).
-Generate a complete, high-converting service landing page for the keyword: "${kw}" in "${dayItem.targetCity}". Theme: "${dayItem.theme}".
-Ensure high semantic density for local AI search and Google organic search. Include 4-6 rich localized FAQs.`,
+            prompt: `You are the lead restoration specialist and master SEO architect for Above & Beyond Restoration in Portland, OR (CCB #262371, Phone 503-608-2930, 90-min emergency response, 5-day max dryout guarantee).
+
+CRITICAL ANTI-DUPLICATION RULE:
+Do NOT create a generic find-and-replace page. Craft a 100% unique, authoritative, deep landing page tailored specifically for:
+- Target Keyword: "${kw}"
+- City / Neighborhood: "${dayItem.targetCity}"
+- Local Housing Dynamics: ${geo.neighborhoodTraits}
+- Specific Vulnerability: ${geo.plumbingVulnerability}
+- Local Climate & Weather: ${geo.weatherFactor}
+- Typical Scenario: ${geo.commonLossScenario}
+
+MANDATORY INTERNAL INTERLINKING:
+In the description paragraphs, you MUST naturally weave in 2 to 3 contextual Markdown hyperlinks pointing to:
+- [Portland water damage restoration](/services/water-damage)
+- [certified mold remediation](/services/mold-remediation)
+- [emergency fire damage restoration](/services/fire-damage)
+- [demolition and debris removal](/services/demolition)
+- [localized service guides](/services/guides)
+- [free estimate and inspection](/contact)
+
+Ensure high semantic density for local AI search (Perplexity, ChatGPT, Gemini) and Google organic search. Include 4 to 6 localized, non-generic FAQs with detailed answers.`,
           })
 
           if (output) {
@@ -387,13 +486,14 @@ Ensure high semantic density for local AI search and Google organic search. Incl
       createdPages.push(pageData.slug)
     }
 
-    // 2. Generate 1 Daily Blog Post
+    // 2. Generate 1 Daily Blog Post linking to the 3 newly created sub-pages
     let blogData = generateDeterministicBlogPost(
       dayItem.blogKeyword,
       dayItem.blogTitle,
       dayItem.targetCity,
       dayItem.theme,
-      dayNumber
+      dayNumber,
+      createdPages
     )
 
     if (process.env.OPENAI_API_KEY || process.env.GEMINI_API_KEY || process.env.AI_GATEWAY_KEY) {
@@ -401,9 +501,20 @@ Ensure high semantic density for local AI search and Google organic search. Incl
         const { output } = await generateText({
           model: 'google/gemini-2.5-flash',
           output: Output.object({ schema: blogPostAiSchema }),
-          prompt: `You are the senior restoration specialist writing a deep, authoritative guide for Above & Beyond Restoration (Portland, OR).
-Topic: "${dayItem.blogTitle}", Keyword: "${dayItem.blogKeyword}", Location: "${dayItem.targetCity}".
-Write a complete 1,200+ word markdown guide formatted with H2, H3, emergency checklists, and FAQs. Phone is 503-608-2930.`,
+          prompt: `You are the senior restoration specialist writing a deep, authoritative educational guide for Above & Beyond Restoration (Portland, OR metro, CCB #262371, Phone 503-608-2930).
+
+Article Theme: "${dayItem.blogTitle}"
+Focus Keyword: "${dayItem.blogKeyword}"
+Location: "${dayItem.targetCity}"
+Housing Context: ${geo.neighborhoodTraits}
+Weather Context: ${geo.weatherFactor}
+
+MANDATORY INTERLINKING TRIANGLE:
+You MUST contextually cite and hyperlink the 3 newly published landing pages for this cluster in the body:
+${createdPages.map((p) => `- [${p.replace(/-/g, ' ')}](/services/${p})`).join('\n')}
+AND link to the parent hub: [Portland water damage restoration](/services/water-damage).
+
+Write a complete 1,200+ word markdown guide formatted with H2, H3 subheadings, numbered actionable steps, psychrometric drying principles, and 3-5 hyper-local FAQs.`,
         })
 
         if (output) {

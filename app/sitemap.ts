@@ -1,12 +1,13 @@
 import { MetadataRoute } from 'next'
 import { getAllSeoPages, getAllBlogPosts } from '@/app/actions/seo-content'
 
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://aboveandbeyondrestoration.com'
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.abovebeyondrestorationllc.com'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: `${BASE_URL}/`, lastModified: new Date(), changeFrequency: 'daily', priority: 1.0 },
     { url: `${BASE_URL}/services`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${BASE_URL}/services/guides`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.85 },
     { url: `${BASE_URL}/services/water-damage`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.9 },
     { url: `${BASE_URL}/services/fire-damage`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.9 },
     { url: `${BASE_URL}/services/mold-remediation`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.9 },

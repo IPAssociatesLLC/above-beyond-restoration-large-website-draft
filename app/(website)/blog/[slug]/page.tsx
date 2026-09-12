@@ -5,6 +5,8 @@ import Image from 'next/image'
 import { getBlogPostBySlug, getAllBlogPosts } from '@/app/actions/seo-content'
 import { Clock, User, Phone, CheckCircle, ArrowRight, Shield, Calendar } from 'lucide-react'
 
+import { FaqAccordion } from '@/components/website/faq-accordion'
+
 export const dynamic = 'force-dynamic'
 export const revalidate = 0
 
@@ -34,7 +36,49 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 }
 
-// Simple helper to render markdown lines cleanly
+// Inline parser for bold and markdown hyperlinks
+function parseInlineMarkdown(text: string) {
+  // First handle [link text](url)
+  const linkRegex = /\[(.*?)\]\((.*?)\)/g
+  const parts: (string | React.ReactNode)[] = []
+  let lastIndex = 0
+  let match
+
+  while ((match = linkRegex.exec(text)) !== null) {
+    if (match.index > lastIndex) {
+      parts.push(text.substring(lastIndex, match.index))
+    }
+    const linkText = match[1].replace(/\*\*/g, '')
+    const href = match[2]
+    parts.push(
+      <Link
+        key={match.index}
+        href={href}
+        className="text-brand-orange font-bold hover:underline"
+      >
+        {linkText}
+      </Link>
+    )
+    lastIndex = linkRegex.lastIndex
+  }
+  if (lastIndex < text.length) {
+    parts.push(text.substring(lastIndex))
+  }
+
+  // Handle **bold**
+  return parts.map((part, pIdx) => {
+    if (typeof part !== 'string') return part
+    const boldParts = part.split(/(\*\*.*?\*\*)/)
+    return boldParts.map((bPart, bIdx) => {
+      if (bPart.startsWith('**') && bPart.endsWith('**')) {
+        return <strong key={`${pIdx}-${bIdx}`} className="font-bold text-brand-navy">{bPart.slice(2, -2)}</strong>
+      }
+      return bPart
+    })
+  })
+}
+
+// Helper to render markdown lines cleanly
 function formatMarkdownContent(content: string) {
   const lines = content.split('\n')
   return lines.map((line, idx) => {
@@ -63,21 +107,21 @@ function formatMarkdownContent(content: string) {
     if (trimmed.startsWith('> ')) {
       return (
         <blockquote key={idx} className="border-l-4 border-brand-orange bg-orange-50/60 p-4 rounded-r-xl my-6 text-brand-navy font-medium">
-          {trimmed.replace('> ', '')}
+          {parseInlineMarkdown(trimmed.replace('> ', ''))}
         </blockquote>
       )
     }
     if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
       return (
         <li key={idx} className="ml-4 list-disc text-gray-700 my-1 leading-relaxed">
-          {trimmed.replace(/^[-*]\s+/, '')}
+          {parseInlineMarkdown(trimmed.replace(/^[-*]\s+/, ''))}
         </li>
       )
     }
     if (/^\d+\.\s/.test(trimmed)) {
       return (
-        <li key={idx} className="ml-4 list-decimal text-gray-700 my-1 leading-relaxed font-medium">
-          {trimmed.replace(/^\d+\.\s+/, '')}
+        <li key={idx} className="ml-4 list-decimal text-gray-700 my-1 leading-relaxed">
+          {parseInlineMarkdown(trimmed.replace(/^\d+\.\s+/, ''))}
         </li>
       )
     }
@@ -89,7 +133,7 @@ function formatMarkdownContent(content: string) {
     }
     return (
       <p key={idx} className="text-gray-700 leading-relaxed my-4 text-base">
-        {trimmed}
+        {parseInlineMarkdown(trimmed)}
       </p>
     )
   })
@@ -192,20 +236,15 @@ export default async function BlogPostPage({ params }: PageProps) {
                 {formatMarkdownContent(post.content)}
               </div>
 
-              {/* FAQs Section if present */}
+              {/* FAQs Section with Interactive Accordion and FAQPage Schema */}
               {faqs.length > 0 && (
                 <div className="mt-12 pt-8 border-t border-gray-200">
-                  <h2 className="text-2xl font-black text-brand-navy mb-6" style={{ fontFamily: 'var(--font-montserrat), Montserrat, sans-serif' }}>
-                    Frequently Asked Questions
-                  </h2>
-                  <div className="space-y-4">
-                    {faqs.map((faq, i) => (
-                      <div key={i} className="border border-gray-200 rounded-xl p-5 bg-gray-50">
-                        <h3 className="font-bold text-brand-navy mb-2">{faq.q}</h3>
-                        <p className="text-gray-600 text-sm leading-relaxed">{faq.a}</p>
-                      </div>
-                    ))}
-                  </div>
+                  <FaqAccordion
+                    title="Frequently Asked Questions"
+                    subtitle={`Common questions regarding ${post.title.toLowerCase()} and emergency mitigation in Portland, OR.`}
+                    faqs={faqs}
+                    badge="Article FAQs"
+                  />
                 </div>
               )}
 

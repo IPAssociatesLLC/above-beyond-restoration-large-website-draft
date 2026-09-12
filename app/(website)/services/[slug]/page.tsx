@@ -52,11 +52,12 @@ export default async function DynamicServicePage({ params }: PageProps) {
     '@graph': [
       {
         '@type': 'RestorationService',
-        '@id': `https://aboveandbeyondrestoration.com/services/${page.slug}#service`,
+        '@id': `https://www.abovebeyondrestorationllc.com/services/${page.slug}#service`,
         name: page.title,
         description: page.subtitle,
         provider: {
           '@type': 'LocalBusiness',
+          '@id': 'https://www.abovebeyondrestorationllc.com/#organization',
           name: 'Above & Beyond Restoration',
           telephone: '503-608-2930',
           email: 'TommyBletcher@gmail.com',
@@ -78,7 +79,7 @@ export default async function DynamicServicePage({ params }: PageProps) {
       },
       {
         '@type': 'FAQPage',
-        '@id': `https://aboveandbeyondrestoration.com/services/${page.slug}#faq`,
+        '@id': `https://www.abovebeyondrestorationllc.com/services/${page.slug}#faq`,
         mainEntity: faqs.map((faq) => ({
           '@type': 'Question',
           name: faq.q,
@@ -95,19 +96,19 @@ export default async function DynamicServicePage({ params }: PageProps) {
             '@type': 'ListItem',
             position: 1,
             name: 'Home',
-            item: 'https://aboveandbeyondrestoration.com',
+            item: 'https://www.abovebeyondrestorationllc.com',
           },
           {
             '@type': 'ListItem',
             position: 2,
             name: 'Services',
-            item: 'https://aboveandbeyondrestoration.com/services',
+            item: 'https://www.abovebeyondrestorationllc.com/services',
           },
           {
             '@type': 'ListItem',
             position: 3,
             name: page.title,
-            item: `https://aboveandbeyondrestoration.com/services/${page.slug}`,
+            item: `https://www.abovebeyondrestorationllc.com/services/${page.slug}`,
           },
         ],
       },

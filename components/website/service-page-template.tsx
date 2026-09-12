@@ -13,6 +13,35 @@ interface ServicePageProps {
   relatedServices: { name: string; href: string }[]
 }
 
+function renderMarkdownText(text: string) {
+  const parts = []
+  const regex = /\[(.*?)\]\((.*?)\)/g
+  let lastIndex = 0
+  let match
+
+  while ((match = regex.exec(text)) !== null) {
+    if (match.index > lastIndex) {
+      parts.push(text.substring(lastIndex, match.index))
+    }
+    const label = match[1]
+    const href = match[2]
+    parts.push(
+      <Link
+        key={match.index}
+        href={href}
+        className="text-brand-orange font-semibold hover:underline"
+      >
+        {label}
+      </Link>
+    )
+    lastIndex = regex.lastIndex
+  }
+  if (lastIndex < text.length) {
+    parts.push(text.substring(lastIndex))
+  }
+  return parts.length > 0 ? parts : text
+}
+
 export function ServicePageTemplate({
   title,
   subtitle,
@@ -66,10 +95,12 @@ export function ServicePageTemplate({
           <div className="grid lg:grid-cols-3 gap-10">
             {/* Main Content */}
             <div className="lg:col-span-2 space-y-10">
-              {/* Description */}
+              {/* Description with contextual internal links */}
               <div>
-                <div className="space-y-4 text-gray-600 leading-relaxed">
-                  {description.map((para, i) => <p key={i}>{para}</p>)}
+                <div className="space-y-4 text-gray-600 leading-relaxed text-base">
+                  {description.map((para, i) => (
+                    <p key={i}>{renderMarkdownText(para)}</p>
+                  ))}
                 </div>
               </div>
 
