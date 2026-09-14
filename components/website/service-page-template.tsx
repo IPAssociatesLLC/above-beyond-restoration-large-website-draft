@@ -14,33 +14,47 @@ interface ServicePageProps {
   relatedServices: { name: string; href: string }[]
 }
 
-function renderMarkdownText(text: string) {
-  const parts = []
-  const regex = /\[(.*?)\]\((.*?)\)/g
+function renderMarkdownText(text: string): React.ReactNode {
+  const linkRegex = /\[(.*?)\]\((.*?)\)/g
+  const parts: (string | React.ReactNode)[] = []
   let lastIndex = 0
   let match
 
-  while ((match = regex.exec(text)) !== null) {
+  while ((match = linkRegex.exec(text)) !== null) {
     if (match.index > lastIndex) {
       parts.push(text.substring(lastIndex, match.index))
     }
-    const label = match[1]
+    const label = match[1].replace(/\*\*/g, '')
     const href = match[2]
     parts.push(
       <Link
-        key={match.index}
+        key={`link-${match.index}`}
         href={href}
-        className="text-brand-orange font-semibold hover:underline"
+        className="text-brand-orange font-bold hover:underline"
       >
         {label}
       </Link>
     )
-    lastIndex = regex.lastIndex
+    lastIndex = linkRegex.lastIndex
   }
   if (lastIndex < text.length) {
     parts.push(text.substring(lastIndex))
   }
-  return parts.length > 0 ? parts : text
+
+  return parts.flatMap((part, pIdx) => {
+    if (typeof part !== 'string') return [part]
+    const boldParts = part.split(/(\*\*.*?\*\*)/)
+    return boldParts.map((bPart, bIdx) => {
+      if (bPart.startsWith('**') && bPart.endsWith('**')) {
+        return (
+          <strong key={`b-${pIdx}-${bIdx}`} className="font-bold text-brand-navy">
+            {bPart.slice(2, -2)}
+          </strong>
+        )
+      }
+      return bPart
+    })
+  })
 }
 
 export function ServicePageTemplate({
@@ -96,9 +110,12 @@ export function ServicePageTemplate({
           <div className="grid lg:grid-cols-3 gap-10">
             {/* Main Content */}
             <div className="lg:col-span-2 space-y-10">
-              {/* Description with contextual internal links */}
+              {/* Description with contextual internal links & H2 heading */}
               <div>
-                <div className="space-y-4 text-gray-600 leading-relaxed text-base">
+                <h2 className="text-2xl md:text-3xl font-black text-brand-navy mb-5" style={{ fontFamily: 'var(--font-montserrat), Montserrat, sans-serif' }}>
+                  Emergency {title} — Certified Response & Mitigation
+                </h2>
+                <div className="space-y-4 text-gray-700 leading-relaxed text-base">
                   {description.map((para, i) => (
                     <p key={i}>{renderMarkdownText(para)}</p>
                   ))}
@@ -123,7 +140,7 @@ export function ServicePageTemplate({
               {/* Process */}
               <div>
                 <h2 className="text-2xl font-black text-brand-navy mb-5" style={{ fontFamily: 'var(--font-montserrat), Montserrat, sans-serif' }}>
-                  Our Process
+                  Our Restoration Process
                 </h2>
                 <div className="space-y-5">
                   {process.map((step, i) => (
@@ -140,8 +157,8 @@ export function ServicePageTemplate({
                 </div>
               </div>
 
-              {/* Pricing & Timeline Guide (Search-IQ Recommended) */}
-              <div className="bg-gradient-to-br from-brand-navy to-slate-900 text-white rounded-2xl p-8 shadow-sm">
+              {/* Pricing & Timeline Guide (Clean Solid Brand Navy) */}
+              <div className="bg-brand-navy text-white rounded-2xl p-8 border border-white/10 shadow-md">
                 <div className="flex items-center gap-2 text-brand-orange text-xs font-bold uppercase tracking-wider mb-2">
                   <Clock className="w-4 h-4" />
                   <span>Transparent Pricing & Turnaround Times</span>
@@ -150,24 +167,24 @@ export function ServicePageTemplate({
                   Restoration Pricing & Timeline Guide
                 </h2>
                 <p className="text-white/80 text-sm leading-relaxed mb-6">
-                  We use industry-standard Xactimate 2025 pricing to ensure full transparency and direct alignment with your insurance adjuster.
+                  We use industry-standard Xactimate 2026 pricing to ensure full transparency and direct alignment with your insurance adjuster.
                 </p>
 
                 <div className="grid sm:grid-cols-3 gap-4 border-t border-white/10 pt-6">
-                  <div className="bg-white/5 rounded-xl p-4 border border-white/10">
+                  <div className="bg-white/10 rounded-xl p-4 border border-white/10">
                     <p className="text-brand-orange text-xs font-bold uppercase">Dispatch Arrival</p>
-                    <p className="text-xl font-black text-white mt-1">90 Minutes</p>
-                    <p className="text-white/60 text-xs mt-1">24/7 on-site emergency response in Portland Metro</p>
+                    <p className="text-2xl font-black text-white mt-1">90 Minutes</p>
+                    <p className="text-white/70 text-xs mt-1">24/7 on-site emergency response across Portland Metro</p>
                   </div>
-                  <div className="bg-white/5 rounded-xl p-4 border border-white/10">
+                  <div className="bg-white/10 rounded-xl p-4 border border-white/10">
                     <p className="text-brand-orange text-xs font-bold uppercase">Drying Guarantee</p>
-                    <p className="text-xl font-black text-white mt-1">3–5 Days</p>
-                    <p className="text-white/60 text-xs mt-1">5-day maximum dryout fee guarantee on clean water</p>
+                    <p className="text-2xl font-black text-white mt-1">3–5 Days</p>
+                    <p className="text-white/70 text-xs mt-1">5-day maximum dryout fee guarantee on clean water</p>
                   </div>
-                  <div className="bg-white/5 rounded-xl p-4 border border-white/10">
+                  <div className="bg-white/10 rounded-xl p-4 border border-white/10">
                     <p className="text-brand-orange text-xs font-bold uppercase">Insurance Billing</p>
-                    <p className="text-xl font-black text-white mt-1">100% Direct</p>
-                    <p className="text-white/60 text-xs mt-1">We bill your carrier directly with zero upfront fees</p>
+                    <p className="text-2xl font-black text-white mt-1">100% Direct</p>
+                    <p className="text-white/70 text-xs mt-1">We bill your insurance carrier directly with zero upfront fees</p>
                   </div>
                 </div>
               </div>

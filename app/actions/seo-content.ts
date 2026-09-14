@@ -216,9 +216,9 @@ function generateDeterministicServicePage(keyword: string, city: string, theme: 
     city,
     serviceCategory: 'Water Damage Restoration',
     description: [
-      `When property owners in ${city} experience an emergency requiring **${keyword.toLowerCase()}**, prompt certified mitigation is essential to avoid permanent structural degradation. Above & Beyond Restoration delivers 24/7/365 emergency response with an on-site arrival guarantee of **90 minutes or less**. In ${city}, homes characterized by ${geo.neighborhoodTraits} are particularly susceptible to ${geo.commonLossScenario}. Our rapid extraction protocols halt water migration before secondary mold growth develops.`,
-      `Managing structural restoration in ${city} demands specialized familiarity with regional construction methods. Whether dealing with ${geo.plumbingVulnerability} or mitigating exterior water intrusion caused by ${geo.weatherFactor}, our IICRC-certified crews deploy commercial thermal infrared cameras, penetrating moisture meters, and industrial Low-Grain Refrigerant (LGR) dehumidifiers. For extensive restoration needs, explore our comprehensive [Portland water damage restoration](/services/water-damage) and [certified mold remediation](/services/mold-remediation) capabilities.`,
-      `We advocate directly for property owners by documenting all moisture readings and structural damage using industry-standard Xactimate pricing. We bill your insurance carrier directly, eliminating out-of-pocket stress. Backed by our **5-Day Maximum Dry-Out Policy** on clean water losses and a **1-Year Full Workmanship Warranty** ([Oregon CCB #262371](/about)), your property is restored to pre-loss dry standard with complete peace of mind. For full regional coverage, browse our [service guides directory](/services/guides) or request a [free on-site estimate](/contact).`,
+      `When property owners in ${city} experience an emergency requiring **${keyword.toLowerCase()}**, prompt certified mitigation from our [emergency water extraction](/services/water-damage) team is essential to avoid permanent structural degradation. Above & Beyond Restoration delivers 24/7/365 emergency response with an on-site arrival guarantee of **90 minutes or less**. In ${city}, homes characterized by ${geo.neighborhoodTraits} are particularly susceptible to ${geo.commonLossScenario}. Our rapid extraction protocols halt water migration before secondary mold growth develops.`,
+      `Managing structural restoration in ${city} demands specialized familiarity with regional construction methods. Whether dealing with ${geo.plumbingVulnerability} or mitigating exterior water intrusion caused by ${geo.weatherFactor}, our IICRC-certified crews deploy commercial thermal infrared cameras, penetrating moisture meters, and industrial Low-Grain Refrigerant (LGR) dehumidifiers. For extensive structural recovery needs, explore our certified [mold remediation procedures](/services/mold-remediation) and non-invasive drying capabilities.`,
+      `We advocate directly for property owners by documenting all moisture readings and structural damage using industry-standard Xactimate 2026 pricing. We bill your insurance carrier directly, eliminating out-of-pocket stress. Backed by our **5-Day Maximum Dry-Out Policy** on clean water losses and a **1-Year Full Workmanship Warranty** ([Oregon CCB #262371](/about)), your property is restored to pre-loss dry standard with complete peace of mind. To get an inspection within 90 minutes, request a [free on-site estimate](/contact) or call our 24/7 dispatch hotline directly.`,
     ],
     benefits: [
       '5-Day Maximum Dry-Out Charge on Clean Water',
@@ -249,7 +249,7 @@ function generateDeterministicServicePage(keyword: string, city: string, theme: 
       },
       {
         q: 'Will my homeowners or commercial property insurance cover this restoration?',
-        a: 'Yes. Most property insurance policies cover sudden and accidental water losses. We handle all documentation, photograph moisture readings, scope the project in Xactimate, and bill your insurance company directly.',
+        a: 'Yes. Most property insurance policies cover sudden and accidental water losses. We handle all documentation, photograph moisture readings, scope the project in Xactimate 2026, and bill your insurance company directly.',
       },
       {
         q: 'What is your 5-Day Maximum Dry-Out Guarantee?',
@@ -411,14 +411,13 @@ Do NOT create a generic find-and-replace page. Craft a 100% unique, authoritativ
 - Local Climate & Weather: ${geo.weatherFactor}
 - Typical Scenario: ${geo.commonLossScenario}
 
-MANDATORY INTERNAL INTERLINKING:
-In the description paragraphs, you MUST naturally weave in 2 to 3 contextual Markdown hyperlinks pointing to:
-- [Portland water damage restoration](/services/water-damage)
-- [certified mold remediation](/services/mold-remediation)
-- [emergency fire damage restoration](/services/fire-damage)
-- [demolition and debris removal](/services/demolition)
-- [localized service guides](/services/guides)
-- [free estimate and inspection](/contact)
+MANDATORY LINK SPACING & NATURAL PLACEMENT:
+- In the description, provide 3 rich paragraphs.
+- Space your internal hyperlinks evenly: exactly ONE contextual hyperlink per paragraph.
+- NEVER cluster multiple links together in the same sentence.
+- Paragraph 1: Link naturally to [emergency water extraction](/services/water-damage) or [Portland water damage restoration](/services/water-damage).
+- Paragraph 2: Link naturally to [certified mold remediation](/services/mold-remediation) or [emergency fire damage repair](/services/fire-damage).
+- Paragraph 3: Link naturally to [free on-site inspection & estimate](/contact) or [service guides directory](/services/guides).
 
 Ensure high semantic density for local AI search (Perplexity, ChatGPT, Gemini) and Google organic search. Include 4 to 6 localized, non-generic FAQs with detailed answers.`,
           })
