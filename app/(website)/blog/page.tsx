@@ -8,8 +8,52 @@ export const dynamic = 'force-dynamic'
 export const revalidate = 0
 
 export const metadata: Metadata = {
-  title: 'Restoration Blog & Guides | Above & Beyond Restoration',
-  description: 'Expert property restoration advice, disaster mitigation guides, and emergency tips for homeowners and businesses in Portland, OR.',
+  title: 'Property Restoration & Emergency Mitigation Blog | Portland OR',
+  description:
+    'Expert property restoration advice, disaster mitigation guides, and emergency tips for homeowners and businesses in Portland, OR. Call 503-608-2930.',
+  alternates: {
+    canonical: '/blog',
+  },
+  openGraph: {
+    title: 'Property Restoration & Emergency Mitigation Blog | Portland OR',
+    description:
+      'Expert advice, insurance claim guides, and disaster prevention tips from IICRC-certified restoration professionals in Portland, OR.',
+    type: 'website',
+    url: 'https://www.abovebeyondrestorationllc.com/blog',
+  },
+}
+
+const blogIndexSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Blog',
+      '@id': 'https://www.abovebeyondrestorationllc.com/blog#blog',
+      url: 'https://www.abovebeyondrestorationllc.com/blog',
+      name: 'Above & Beyond Restoration Blog',
+      description: 'Educational articles and emergency response guides for property owners in Portland, Oregon.',
+      publisher: {
+        '@id': 'https://www.abovebeyondrestorationllc.com/#organization',
+      },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Home',
+          item: 'https://www.abovebeyondrestorationllc.com',
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'Blog',
+          item: 'https://www.abovebeyondrestorationllc.com/blog',
+        },
+      ],
+    },
+  ],
 }
 
 export default async function BlogIndexPage() {
@@ -17,6 +61,10 @@ export default async function BlogIndexPage() {
 
   return (
     <div className="bg-gray-50 min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogIndexSchema) }}
+      />
       {/* Hero Header */}
       <section className="bg-brand-navy text-white py-16">
         <div className="container mx-auto px-4">
@@ -61,25 +109,26 @@ export default async function BlogIndexPage() {
               >
                 <div className="relative h-48 w-full bg-brand-navy">
                   <Image
-                    src={post.heroImage || '/images/why-choose-us-team.png'}
+                    src={post.featuredImage || '/images/water-damage.png'}
                     alt={post.title}
                     fill
                     className="object-cover"
                   />
-                  <span className="absolute top-3 left-3 bg-brand-navy/90 backdrop-blur-sm text-white text-xs font-semibold px-3 py-1 rounded-full">
+                  <span className="absolute top-3 left-3 bg-brand-orange text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
                     {post.category}
                   </span>
                 </div>
 
                 <div className="p-6 flex-1 flex flex-col">
-                  <div className="flex items-center gap-4 text-xs text-gray-500 mb-3">
+                  <div className="flex items-center gap-3 text-xs text-gray-500 mb-3">
                     <span className="flex items-center gap-1">
-                      <Clock className="w-3.5 h-3.5 text-brand-orange" />
-                      {post.readTime}
+                      <Clock className="w-3.5 h-3.5" />
+                      {post.readTime || '5 min read'}
                     </span>
+                    <span>•</span>
                     <span className="flex items-center gap-1">
-                      <User className="w-3.5 h-3.5 text-brand-orange" />
-                      {post.author ? post.author.split('—')[0] : 'Above & Beyond'}
+                      <User className="w-3.5 h-3.5" />
+                      {post.author || 'Above & Beyond Team'}
                     </span>
                   </div>
 
@@ -93,17 +142,36 @@ export default async function BlogIndexPage() {
                     {post.excerpt}
                   </p>
 
-                  <Link
-                    href={`/blog/${post.slug}`}
-                    className="inline-flex items-center gap-2 text-brand-orange font-bold text-sm hover:gap-3 transition-all pt-3 border-t border-gray-100"
-                  >
-                    Read Full Guide <ArrowRight className="w-4 h-4" />
-                  </Link>
+                  <div className="pt-4 border-t border-gray-100 flex items-center justify-between">
+                    <span className="text-xs text-gray-500">IICRC Certified Insights</span>
+                    <Link
+                      href={`/blog/${post.slug}`}
+                      className="inline-flex items-center gap-1 text-brand-orange font-bold text-sm hover:gap-2 transition-all"
+                    >
+                      Read Article <ArrowRight className="w-4 h-4" />
+                    </Link>
+                  </div>
                 </div>
               </article>
             ))}
           </div>
         )}
+      </section>
+
+      {/* Emergency Bottom Banner */}
+      <section className="bg-brand-navy text-white py-12 border-t border-white/10">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-2xl md:text-3xl font-black mb-3">Need Immediate Emergency Service?</h2>
+          <p className="text-white/70 max-w-xl mx-auto text-sm mb-6">
+            Our certified restoration crew is available 24/7/365 with a guaranteed 90-minute response time across Portland Metro.
+          </p>
+          <a
+            href="tel:5036082930"
+            className="inline-flex items-center gap-2 px-8 py-3.5 bg-brand-orange text-white rounded-xl font-bold text-base hover:bg-orange-600 transition-colors"
+          >
+            <Phone className="w-5 h-5" /> Call 503-608-2930 (24/7 Dispatch)
+          </a>
+        </div>
       </section>
     </div>
   )

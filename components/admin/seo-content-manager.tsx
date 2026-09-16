@@ -91,8 +91,23 @@ export function SeoContentManager({
     }
   }
 
+  // Helper to check if a day is generated
+  const isDayGenerated = (dayNum: number) => {
+    const hasPages = pages.some((p) => p.dayNumber === dayNum)
+    const hasBlog = blogs.some((b) => b.dayNumber === dayNum)
+    return hasPages || hasBlog
+  }
+
+  const generatedDaysCount = schedule.filter((s) => isDayGenerated(s.dayNumber)).length
+
   // Trigger generation for selected day
   const handleGenerateDay = async (dayNum: number) => {
+    if (isDayGenerated(dayNum)) {
+      if (!confirm(`Day ${dayNum} has already been generated. Are you sure you want to re-generate and update its 3 service pages and 1 blog post?`)) {
+        return
+      }
+    }
+
     setIsGenerating(true)
     setFeedback(null)
     try {
@@ -200,7 +215,7 @@ export function SeoContentManager({
         <div className="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm">
           <span className="text-xs font-bold uppercase tracking-wider text-gray-400">Total Strategy Days</span>
           <p className="text-2xl font-black text-brand-navy mt-1">30 Days</p>
-          <span className="text-xs text-brand-orange font-semibold">90 Pages + 30 Blogs Total</span>
+          <span className="text-xs text-brand-orange font-semibold">{generatedDaysCount} of 30 Generated ({Math.round((generatedDaysCount / 30) * 100)}%)</span>
         </div>
         <div className="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm">
           <span className="text-xs font-bold uppercase tracking-wider text-gray-400">Generated Landing Pages</span>
@@ -266,27 +281,57 @@ export function SeoContentManager({
         <div className="grid lg:grid-cols-12 gap-6">
           {/* Day Selector Sidebar List */}
           <div className="lg:col-span-4 bg-white rounded-2xl p-4 border border-gray-100 shadow-sm max-h-[750px] overflow-y-auto">
-            <h3 className="font-black text-brand-navy mb-3 px-2 text-sm uppercase tracking-wider">
+            <h3 className="font-black text-brand-navy mb-2 px-2 text-sm uppercase tracking-wider">
               30-Day Content Roadmap
             </h3>
+
+            {/* Progress Bar */}
+            <div className="mb-3 bg-gray-50 rounded-xl p-3 border border-gray-100">
+              <div className="flex items-center justify-between text-xs font-bold mb-1.5">
+                <span className="text-brand-navy">Plan Progress</span>
+                <span className="text-green-600">{generatedDaysCount} of 30 Days Live</span>
+              </div>
+              <div className="w-full bg-gray-200 h-2 rounded-full overflow-hidden">
+                <div
+                  className="bg-green-500 h-full rounded-full transition-all duration-500"
+                  style={{ width: `${(generatedDaysCount / 30) * 100}%` }}
+                />
+              </div>
+            </div>
+
             <div className="space-y-1.5">
-              {schedule.map((item) => (
-                <button
-                  key={item.dayNumber}
-                  onClick={() => setSelectedDay(item.dayNumber)}
-                  className={`w-full text-left p-3 rounded-xl text-sm transition-all flex items-center justify-between ${
-                    selectedDay === item.dayNumber
-                      ? 'bg-brand-orange text-white font-bold shadow-md shadow-orange-500/20'
-                      : 'hover:bg-gray-100 text-gray-700'
-                  }`}
-                >
-                  <div className="min-w-0 pr-2">
-                    <span className="text-xs uppercase opacity-80 block">Day {item.dayNumber}</span>
-                    <p className="truncate text-sm font-medium">{item.theme}</p>
-                  </div>
-                  <span className="text-xs opacity-75 whitespace-nowrap">{item.targetCity.split(',')[0]}</span>
-                </button>
-              ))}
+              {schedule.map((item) => {
+                const isGen = isDayGenerated(item.dayNumber)
+                const isSel = selectedDay === item.dayNumber
+                return (
+                  <button
+                    key={item.dayNumber}
+                    onClick={() => setSelectedDay(item.dayNumber)}
+                    className={`w-full text-left p-3 rounded-xl text-sm transition-all flex items-center justify-between ${
+                      isSel
+                        ? 'bg-brand-orange text-white font-bold shadow-md shadow-orange-500/20'
+                        : isGen
+                        ? 'bg-green-50/70 border border-green-200 text-gray-800 hover:bg-green-100/70'
+                        : 'hover:bg-gray-100 text-gray-700'
+                    }`}
+                  >
+                    <div className="min-w-0 pr-2">
+                      <div className="flex items-center gap-1.5 mb-0.5">
+                        <span className="text-xs uppercase opacity-80 block">Day {item.dayNumber}</span>
+                        {isGen && (
+                          <span className={`inline-flex items-center gap-0.5 px-1.5 py-0.2 rounded-full text-[10px] font-bold ${
+                            isSel ? 'bg-white/20 text-white' : 'bg-green-100 text-green-700'
+                          }`}>
+                            <Check className="w-2.5 h-2.5" /> Generated
+                          </span>
+                        )}
+                      </div>
+                      <p className="truncate text-sm font-medium">{item.theme}</p>
+                    </div>
+                    <span className="text-xs opacity-75 whitespace-nowrap">{item.targetCity.split(',')[0]}</span>
+                  </button>
+                )
+              })}
             </div>
           </div>
 
@@ -295,8 +340,19 @@ export function SeoContentManager({
             <div className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm space-y-6">
               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-gray-100 pb-4">
                 <div>
-                  <div className="inline-flex items-center gap-1.5 bg-brand-orange/10 text-brand-orange px-3 py-1 rounded-full text-xs font-bold mb-1">
-                    Editing Day {selectedDay} Configuration
+                  <div className="flex items-center gap-2 mb-1">
+                    <div className="inline-flex items-center gap-1.5 bg-brand-orange/10 text-brand-orange px-3 py-1 rounded-full text-xs font-bold">
+                      Day {selectedDay} Configuration
+                    </div>
+                    {isDayGenerated(selectedDay) ? (
+                      <span className="inline-flex items-center gap-1 bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-bold">
+                        <CheckCircle2 className="w-3.5 h-3.5" /> Generated &amp; Live
+                      </span>
+                    ) : (
+                      <span className="inline-flex items-center gap-1 bg-gray-100 text-gray-600 px-3 py-1 rounded-full text-xs font-bold">
+                        ○ Pending Generation
+                      </span>
+                    )}
                   </div>
                   <h2 className="text-xl font-black text-brand-navy" style={{ fontFamily: 'var(--font-montserrat), Montserrat, sans-serif' }}>
                     {currentDayConfig.theme}
@@ -306,11 +362,19 @@ export function SeoContentManager({
                 <button
                   onClick={() => handleGenerateDay(selectedDay)}
                   disabled={isGenerating || isPending}
-                  className="flex items-center gap-2 px-6 py-3 bg-brand-orange text-white rounded-xl font-bold hover:bg-orange-600 transition-all hover:scale-[1.02] shadow-lg shadow-orange-900/20 disabled:opacity-50 whitespace-nowrap"
+                  className={`flex items-center gap-2 px-6 py-3 rounded-xl font-bold transition-all hover:scale-[1.02] shadow-lg disabled:opacity-50 whitespace-nowrap ${
+                    isDayGenerated(selectedDay)
+                      ? 'bg-gray-800 text-white hover:bg-black shadow-gray-900/20'
+                      : 'bg-brand-orange text-white hover:bg-orange-600 shadow-orange-900/20'
+                  }`}
                 >
                   {isGenerating ? (
                     <>
                       <Sparkles className="w-4 h-4 animate-spin" /> Generating Content...
+                    </>
+                  ) : isDayGenerated(selectedDay) ? (
+                    <>
+                      <RotateCcw className="w-4 h-4" /> Re-generate Day {selectedDay} (3 Pages + 1 Blog)
                     </>
                   ) : (
                     <>

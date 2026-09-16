@@ -5,7 +5,6 @@ import Image from 'next/image'
 import React from 'react'
 import { getBlogPostBySlug, getAllBlogPosts } from '@/app/actions/seo-content'
 import { Clock, User, Phone, CheckCircle, ArrowRight, Shield, Calendar } from 'lucide-react'
-
 import { FaqAccordion } from '@/components/website/faq-accordion'
 
 export const dynamic = 'force-dynamic'
@@ -25,13 +24,20 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     }
   }
 
+  const title = post.metaTitle || `${post.title} | Above & Beyond Restoration`
+  const description = post.metaDescription || post.excerpt
+
   return {
-    title: post.metaTitle || `${post.title} | Above & Beyond Restoration`,
-    description: post.metaDescription || post.excerpt,
+    title,
+    description,
+    alternates: {
+      canonical: `/blog/${slug}`,
+    },
     openGraph: {
-      title: post.metaTitle,
-      description: post.metaDescription,
+      title,
+      description,
       type: 'article',
+      url: `https://www.abovebeyondrestorationllc.com/blog/${slug}`,
       locale: 'en_US',
     },
   }
@@ -65,20 +71,27 @@ function parseInlineMarkdown(text: string): React.ReactNode {
     parts.push(text.substring(lastIndex))
   }
 
-  return parts.flatMap((part, pIdx) => {
-    if (typeof part !== 'string') return [part]
+  const result: React.ReactNode[] = []
+  parts.forEach((part, pIdx) => {
+    if (typeof part !== 'string') {
+      result.push(part)
+      return
+    }
     const boldParts = part.split(/(\*\*.*?\*\*)/)
-    return boldParts.map((bPart, bIdx) => {
+    boldParts.forEach((bPart, bIdx) => {
       if (bPart.startsWith('**') && bPart.endsWith('**')) {
-        return (
+        result.push(
           <strong key={`b-${pIdx}-${bIdx}`} className="font-bold text-brand-navy">
             {bPart.slice(2, -2)}
           </strong>
         )
+      } else if (bPart) {
+        result.push(bPart)
       }
-      return bPart
     })
   })
+
+  return result
 }
 
 // Helper to render markdown lines cleanly
@@ -154,27 +167,73 @@ export default async function BlogPostPage({ params }: PageProps) {
   const recentPosts = allPosts.filter((p) => p.slug !== post.slug).slice(0, 3)
   const faqs = (Array.isArray(post.faqs) ? post.faqs : []) as { q: string; a: string }[]
 
+  const schemaGraph: any[] = [
+    {
+      '@type': 'BlogPosting',
+      '@id': `https://www.abovebeyondrestorationllc.com/blog/${post.slug}#article`,
+      headline: post.title,
+      description: post.excerpt,
+      image: post.featuredImage || 'https://www.abovebeyondrestorationllc.com/images/why-choose-us-team.png',
+      author: {
+        '@type': 'Organization',
+        name: 'Above & Beyond Restoration',
+        url: 'https://www.abovebeyondrestorationllc.com',
+      },
+      publisher: {
+        '@type': 'Organization',
+        name: 'Above & Beyond Restoration',
+        logo: {
+          '@type': 'ImageObject',
+          url: 'https://www.abovebeyondrestorationllc.com/logo.png',
+        },
+      },
+      datePublished: post.publishedAt || post.createdAt,
+      dateModified: post.updatedAt,
+      mainEntityOfPage: `https://www.abovebeyondrestorationllc.com/blog/${post.slug}`,
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Home',
+          item: 'https://www.abovebeyondrestorationllc.com',
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'Blog',
+          item: 'https://www.abovebeyondrestorationllc.com/blog',
+        },
+        {
+          '@type': 'ListItem',
+          position: 3,
+          name: post.title,
+          item: `https://www.abovebeyondrestorationllc.com/blog/${post.slug}`,
+        },
+      ],
+    },
+  ]
+
+  if (faqs.length > 0) {
+    schemaGraph.push({
+      '@type': 'FAQPage',
+      '@id': `https://www.abovebeyondrestorationllc.com/blog/${post.slug}#faq`,
+      mainEntity: faqs.map((faq) => ({
+        '@type': 'Question',
+        name: faq.q,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: faq.a,
+        },
+      })),
+    })
+  }
+
   const jsonLd = {
     '@context': 'https://schema.org',
-    '@type': 'BlogPosting',
-    headline: post.title,
-    description: post.excerpt,
-    author: {
-      '@type': 'Organization',
-      name: 'Above & Beyond Restoration',
-      url: 'https://aboveandbeyondrestoration.com',
-    },
-    publisher: {
-      '@type': 'Organization',
-      name: 'Above & Beyond Restoration',
-      logo: {
-        '@type': 'ImageObject',
-        url: 'https://aboveandbeyondrestoration.com/logo.png',
-      },
-    },
-    datePublished: post.publishedAt || post.createdAt,
-    dateModified: post.updatedAt,
-    mainEntityOfPage: `https://aboveandbeyondrestoration.com/blog/${post.slug}`,
+    '@graph': schemaGraph,
   }
 
   return (
@@ -227,7 +286,7 @@ export default async function BlogPostPage({ params }: PageProps) {
             <article className="lg:col-span-2 bg-white rounded-2xl p-8 md:p-12 border border-gray-100 shadow-sm">
               <div className="relative h-64 md:h-80 w-full rounded-xl overflow-hidden mb-8 bg-brand-navy">
                 <Image
-                  src={post.heroImage || '/images/why-choose-us-team.png'}
+                  src={post.featuredImage || '/images/why-choose-us-team.png'}
                   alt={post.title}
                   fill
                   className="object-cover"
@@ -247,6 +306,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                     subtitle={`Common questions regarding ${post.title.toLowerCase()} and emergency mitigation in Portland, OR.`}
                     faqs={faqs}
                     badge="Article FAQs"
+                    enableJsonLd={false}
                   />
                 </div>
               )}

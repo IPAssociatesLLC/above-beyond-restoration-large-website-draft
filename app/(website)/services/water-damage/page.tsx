@@ -2,8 +2,19 @@ import type { Metadata } from 'next'
 import { ServicePageTemplate } from '@/components/website/service-page-template'
 
 export const metadata: Metadata = {
-  title: 'Water Damage Restoration Portland OR | Above & Beyond',
-  description: 'Emergency water damage restoration in Portland OR. 90-minute response, IICRC certified, water extraction, structural drying, direct insurance billing. Call 503-608-2930.',
+  title: 'Water Damage Restoration Portland OR | 90-Min Response | Above & Beyond',
+  description:
+    'Emergency water damage restoration in Portland, OR. 90-minute response, IICRC-certified water extraction, 5-day max clean water dryout charge. Call 503-608-2930.',
+  alternates: {
+    canonical: '/services/water-damage',
+  },
+  openGraph: {
+    title: 'Water Damage Restoration Portland OR | Above & Beyond',
+    description:
+      '24/7 emergency water extraction, thermal moisture detection, and structural drying in Portland, OR. Oregon CCB #262371.',
+    type: 'website',
+    url: 'https://www.abovebeyondrestorationllc.com/services/water-damage',
+  },
 }
 
 export default function WaterDamagePage() {
@@ -12,6 +23,7 @@ export default function WaterDamagePage() {
       title="Water Damage Restoration"
       subtitle="24/7 emergency water extraction and structural drying. We limit damage and costs with rapid, professional response across Portland, Salem, and surrounding areas."
       heroImage="/images/water-damage.png"
+      slug="water-damage"
       description={[
         "Above and Beyond Restoration has the expertise to help people who are in need of emergency water extraction or water removal services due to a natural disaster, like flooding from heavy rains, or one of those everyday problems, like busted water pipes.",
         "Water damage can be deceptive — what seems like a minor leak can quickly lead to structural damage and toxic mold growth if not addressed properly and promptly. Our IICRC certified technicians use professional-grade moisture meters, thermal imaging, and industrial drying equipment to ensure complete restoration.",

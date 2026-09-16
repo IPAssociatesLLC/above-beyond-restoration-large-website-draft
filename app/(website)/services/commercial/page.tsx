@@ -1,8 +1,20 @@
+import type { Metadata } from 'next'
 import { ServicePageTemplate } from '@/components/website/service-page-template'
 
-export const metadata = {
-  title: 'Commercial Property Restoration | Above & Beyond Restoration Portland, OR',
-  description: 'Large-scale commercial property restoration in Portland, OR. Minimize downtime and protect your assets. Call 503-608-2930.',
+export const metadata: Metadata = {
+  title: 'Commercial Restoration Services Portland OR | 24/7 Large Loss Response',
+  description:
+    'Large-scale commercial water, fire, and mold restoration in Portland, OR. Minimize business downtime with industrial drying and direct insurance billing. Call 503-608-2930.',
+  alternates: {
+    canonical: '/services/commercial',
+  },
+  openGraph: {
+    title: 'Commercial Restoration Services Portland OR | 24/7 Large Loss Response',
+    description:
+      '24/7 emergency commercial restoration for offices, retail, warehouses, and multi-family buildings in Portland, OR. Oregon CCB #262371.',
+    type: 'website',
+    url: 'https://www.abovebeyondrestorationllc.com/services/commercial',
+  },
 }
 
 export default function CommercialPage() {
@@ -11,6 +23,7 @@ export default function CommercialPage() {
       title="Commercial Property Restoration"
       subtitle="Rapid-response commercial restoration that minimizes business interruption. We work around your schedule to restore your facility and get you operational again."
       heroImage="/images/commercial.png"
+      slug="commercial"
       description={[
         'Commercial water, fire, and mold damage requires a different level of response than residential work. Business owners and property managers face the added pressure of employee safety, operational downtime, tenant relations, and commercial insurance requirements — all while dealing with an active disaster.',
         'Above & Beyond Restoration is equipped to handle large-scale commercial restoration projects throughout Portland Metro. Our crews are scaled to the project, with the equipment and personnel to work efficiently on office buildings, retail centers, restaurants, warehouses, multi-family properties, and more.',

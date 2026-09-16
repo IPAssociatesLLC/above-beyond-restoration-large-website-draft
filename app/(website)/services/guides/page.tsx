@@ -8,8 +8,55 @@ export const dynamic = 'force-dynamic'
 export const revalidate = 0
 
 export const metadata: Metadata = {
-  title: 'Service Guides & Local Coverage | Above & Beyond Restoration',
-  description: 'Explore all published emergency water, fire, and mold restoration service guides across the greater Portland, Oregon metro area.',
+  title: 'Restoration Service Guides & Local Coverage | Above & Beyond',
+  description:
+    'Explore all published emergency water, fire, and mold restoration service guides and coverage areas across the greater Portland, Oregon metro area.',
+  alternates: {
+    canonical: '/services/guides',
+  },
+  openGraph: {
+    title: 'Restoration Service Guides & Local Coverage | Above & Beyond',
+    description:
+      'Explore localized emergency restoration guides, rapid response procedures, and service overviews across Portland metro.',
+    type: 'website',
+    url: 'https://www.abovebeyondrestorationllc.com/services/guides',
+  },
+}
+
+const guidesSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'CollectionPage',
+      '@id': 'https://www.abovebeyondrestorationllc.com/services/guides#webpage',
+      url: 'https://www.abovebeyondrestorationllc.com/services/guides',
+      name: 'Restoration Service Guides & Local Coverage',
+      description: 'Directory of localized emergency property restoration guides across Portland metro.',
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Home',
+          item: 'https://www.abovebeyondrestorationllc.com',
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'Services',
+          item: 'https://www.abovebeyondrestorationllc.com/services',
+        },
+        {
+          '@type': 'ListItem',
+          position: 3,
+          name: 'Service Guides',
+          item: 'https://www.abovebeyondrestorationllc.com/services/guides',
+        },
+      ],
+    },
+  ],
 }
 
 export default async function ServiceGuidesPage() {
@@ -17,6 +64,10 @@ export default async function ServiceGuidesPage() {
 
   return (
     <div className="bg-gray-50 min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(guidesSchema) }}
+      />
       {/* Hero Header */}
       <section className="bg-brand-navy text-white py-16">
         <div className="container mx-auto px-4">

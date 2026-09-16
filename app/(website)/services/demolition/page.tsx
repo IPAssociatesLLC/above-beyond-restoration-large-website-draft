@@ -1,8 +1,20 @@
+import type { Metadata } from 'next'
 import { ServicePageTemplate } from '@/components/website/service-page-template'
 
-export const metadata = {
-  title: 'Demolition Services | Above & Beyond Restoration Portland, OR',
-  description: 'Professional selective demolition and structural tear-out services in Portland, OR. Licensed and insured. Call 503-608-2930.',
+export const metadata: Metadata = {
+  title: 'Demolition Services Portland OR | Selective Structural Tear-Out',
+  description:
+    'Professional selective demolition and structural tear-out services in Portland, OR. Safe hazardous material removal, dust containment, and site cleanup. Call 503-608-2930.',
+  alternates: {
+    canonical: '/services/demolition',
+  },
+  openGraph: {
+    title: 'Demolition Services Portland OR | Selective Structural Tear-Out',
+    description:
+      'Selective interior demolition and structural tear-out for restoration in Portland, OR. Oregon CCB #262371 licensed & insured.',
+    type: 'website',
+    url: 'https://www.abovebeyondrestorationllc.com/services/demolition',
+  },
 }
 
 export default function DemolitionPage() {
@@ -11,6 +23,7 @@ export default function DemolitionPage() {
       title="Demolition Services"
       subtitle="Controlled, professional demolition and debris removal for restoration projects. We safely remove damaged materials to prepare your property for rebuilding."
       heroImage="/images/demolition.png"
+      slug="demolition"
       description={[
         'Effective restoration requires thorough removal of damaged structural materials. Our demolition team performs precise, controlled selective demolition — targeting only what needs to go while preserving what can be saved. Whether it\'s water-soaked drywall, fire-damaged framing, or mold-compromised subfloor, we extract it safely and efficiently.',
         'Above & Beyond Restoration holds all required Oregon CCB licenses for demolition and structural work. Our crews are trained in safe material handling including lead paint and asbestos awareness, and we coordinate with licensed abatement professionals when hazardous materials are identified.',

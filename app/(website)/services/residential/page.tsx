@@ -1,8 +1,20 @@
+import type { Metadata } from 'next'
 import { ServicePageTemplate } from '@/components/website/service-page-template'
 
-export const metadata = {
-  title: 'Residential Property Restoration | Above & Beyond Restoration Portland, OR',
-  description: 'Full-service residential property restoration in Portland, OR. Water, fire, mold, and more. IICRC certified. Call 503-608-2930.',
+export const metadata: Metadata = {
+  title: 'Residential Property Restoration Portland OR | Above & Beyond',
+  description:
+    'Full-service residential disaster restoration in Portland, OR. Water extraction, mold remediation, fire repairs, and 1-year warranty on reconstruction. Call 503-608-2930.',
+  alternates: {
+    canonical: '/services/residential',
+  },
+  openGraph: {
+    title: 'Residential Property Restoration Portland OR | Above & Beyond',
+    description:
+      'Complete home restoration services across Portland metro. Emergency water mitigation, mold containment, and fire repair.',
+    type: 'website',
+    url: 'https://www.abovebeyondrestorationllc.com/services/residential',
+  },
 }
 
 export default function ResidentialPage() {
@@ -11,6 +23,7 @@ export default function ResidentialPage() {
       title="Residential Property Restoration"
       subtitle="Complete home restoration services from emergency mitigation through final repair. We treat your home with the care it deserves — and get you back to normal fast."
       heroImage="/images/hero-restoration.png"
+      slug="residential"
       description={[
         'Your home is your most important asset. When disaster strikes — whether it\'s a burst pipe, sewage backup, kitchen fire, or sudden mold discovery — you need a restoration company you can trust to respond quickly, communicate clearly, and deliver exceptional results.',
         'Above & Beyond Restoration serves homeowners throughout Portland and the surrounding communities. From the initial emergency call to the final walk-through, our IICRC-certified technicians handle every phase of residential restoration with professionalism and care.',

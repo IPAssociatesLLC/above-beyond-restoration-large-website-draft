@@ -13,6 +13,7 @@ interface FaqAccordionProps {
   subtitle?: string
   faqs: FaqItem[]
   badge?: string
+  enableJsonLd?: boolean
 }
 
 export function FaqAccordion({
@@ -20,6 +21,7 @@ export function FaqAccordion({
   subtitle = 'Get clear answers to common questions about emergency restoration, insurance billing, and response times in Portland, OR.',
   faqs,
   badge = 'Common Questions',
+  enableJsonLd = true,
 }: FaqAccordionProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(0)
 
@@ -43,10 +45,12 @@ export function FaqAccordion({
 
   return (
     <section className="py-16 bg-white border-t border-gray-100">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
+      {enableJsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
+      )}
       <div className="container mx-auto px-4 max-w-4xl">
         <div className="text-center mb-12">
           {badge && (

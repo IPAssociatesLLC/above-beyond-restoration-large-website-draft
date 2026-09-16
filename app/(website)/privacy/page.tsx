@@ -1,11 +1,41 @@
-export const metadata = {
-  title: 'Privacy Policy | Above & Beyond Restoration',
-  description: 'Privacy policy for Above & Beyond Restoration.',
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Privacy Policy | Above & Beyond Restoration LLC',
+  description:
+    'Learn how Above & Beyond Restoration collects, protects, and handles your personal information when requesting restoration estimates and emergency services.',
+  alternates: {
+    canonical: '/privacy',
+  },
+  openGraph: {
+    title: 'Privacy Policy | Above & Beyond Restoration LLC',
+    description: 'Privacy policy and data protection disclosures for Above & Beyond Restoration.',
+    type: 'website',
+    url: 'https://www.abovebeyondrestorationllc.com/privacy',
+  },
+}
+
+const privacySchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  '@id': 'https://www.abovebeyondrestorationllc.com/privacy#webpage',
+  url: 'https://www.abovebeyondrestorationllc.com/privacy',
+  name: 'Privacy Policy',
+  description: 'Privacy policy for Above & Beyond Restoration LLC.',
+  publisher: {
+    '@type': 'EmergencyService',
+    name: 'Above & Beyond Restoration',
+    url: 'https://www.abovebeyondrestorationllc.com',
+  },
 }
 
 export default function PrivacyPage() {
   return (
     <div className="bg-white min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(privacySchema) }}
+      />
       {/* Header */}
       <section className="bg-brand-navy py-16">
         <div className="container mx-auto px-4">
@@ -15,7 +45,7 @@ export default function PrivacyPage() {
           >
             Privacy Policy
           </h1>
-          <p className="text-white/70">Last updated: January 1, 2025</p>
+          <p className="text-white/70">Last updated: 2026</p>
         </div>
       </section>
 
@@ -26,7 +56,7 @@ export default function PrivacyPage() {
             <div>
               <h2 className="text-xl font-bold text-brand-navy mb-3">1. Information We Collect</h2>
               <p className="text-gray-600 leading-relaxed">
-                Above & Beyond Restoration ("we," "us," or "our") collects information you voluntarily provide when you contact us, request an estimate, or use our website. This may include your name, phone number, email address, property address, and details about your restoration needs.
+                Above & Beyond Restoration (&quot;we,&quot; &quot;us,&quot; or &quot;our&quot;) collects information you voluntarily provide when you contact us, request an estimate, or use our website. This may include your name, phone number, email address, property address, and details about your restoration needs.
               </p>
             </div>
             <div>
@@ -65,7 +95,7 @@ export default function PrivacyPage() {
                 For privacy-related questions or requests, contact Above & Beyond Restoration at:<br />
                 P.O. Box 542, Sherwood, OR 97140<br />
                 Phone: 503-608-2930<br />
-                CCB #193269
+                Oregon CCB #262371
               </p>
             </div>
           </div>

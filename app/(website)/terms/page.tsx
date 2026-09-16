@@ -1,11 +1,41 @@
-export const metadata = {
-  title: 'Terms of Service | Above & Beyond Restoration',
-  description: 'Terms of service for Above & Beyond Restoration.',
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Terms of Service & Warranty Conditions | Above & Beyond Restoration',
+  description:
+    'Review terms of service, emergency dispatch policies, and 1-year workmanship warranty coverage for Above & Beyond Restoration (CCB #262371).',
+  alternates: {
+    canonical: '/terms',
+  },
+  openGraph: {
+    title: 'Terms of Service & Warranty Conditions | Above & Beyond Restoration',
+    description: 'Contractor terms, warranty information, and service policies for Above & Beyond Restoration LLC.',
+    type: 'website',
+    url: 'https://www.abovebeyondrestorationllc.com/terms',
+  },
+}
+
+const termsSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  '@id': 'https://www.abovebeyondrestorationllc.com/terms#webpage',
+  url: 'https://www.abovebeyondrestorationllc.com/terms',
+  name: 'Terms of Service',
+  description: 'Terms of service and warranty terms for Above & Beyond Restoration LLC.',
+  publisher: {
+    '@type': 'EmergencyService',
+    name: 'Above & Beyond Restoration',
+    url: 'https://www.abovebeyondrestorationllc.com',
+  },
 }
 
 export default function TermsPage() {
   return (
     <div className="bg-white min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(termsSchema) }}
+      />
       {/* Header */}
       <section className="bg-brand-navy py-16">
         <div className="container mx-auto px-4">
@@ -15,7 +45,7 @@ export default function TermsPage() {
           >
             Terms of Service
           </h1>
-          <p className="text-white/70">Last updated: January 1, 2025</p>
+          <p className="text-white/70">Last updated: 2026</p>
         </div>
       </section>
 

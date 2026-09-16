@@ -1,8 +1,20 @@
+import type { Metadata } from 'next'
 import { ServicePageTemplate } from '@/components/website/service-page-template'
 
-export const metadata = {
-  title: 'Smoke Damage Restoration | Above & Beyond Restoration Portland, OR',
-  description: 'Professional smoke and soot damage cleanup in Portland, OR. IICRC certified technicians. Call 503-608-2930 for 24/7 emergency service.',
+export const metadata: Metadata = {
+  title: 'Smoke Damage Cleanup & Odor Removal Portland OR | Above & Beyond',
+  description:
+    'Comprehensive smoke residue cleanup and thermal fogging odor elimination for Portland homes and businesses. 24/7 emergency service: 503-608-2930.',
+  alternates: {
+    canonical: '/services/smoke-damage',
+  },
+  openGraph: {
+    title: 'Smoke Damage Cleanup & Odor Removal Portland OR | Above & Beyond',
+    description:
+      'Professional smoke and soot damage cleanup in Portland, OR. Chemical soot sponges, thermal fogging, and HEPA air scrubbing.',
+    type: 'website',
+    url: 'https://www.abovebeyondrestorationllc.com/services/smoke-damage',
+  },
 }
 
 export default function SmokeDamagePage() {
@@ -11,6 +23,7 @@ export default function SmokeDamagePage() {
       title="Smoke Damage Restoration"
       subtitle="Thorough smoke and soot removal to restore your property to pre-loss condition. We eliminate odors at the source using advanced techniques."
       heroImage="/images/smoke-damage.png"
+      slug="smoke-damage"
       description={[
         'Smoke and soot damage can be far more extensive than it first appears. Even in areas where fire did not directly burn, smoke residue travels through HVAC systems and settles into walls, ceilings, and personal belongings. If not addressed quickly, soot becomes increasingly difficult to remove and odors can permanently embed into porous materials.',
         'At Above & Beyond Restoration, our IICRC-certified smoke damage technicians respond rapidly to assess and document all damage for your insurance claim. We use industrial HEPA air scrubbers, specialized dry and wet cleaning sponges, and thermal fogging technology to neutralize odors and eliminate soot residue from every surface.',

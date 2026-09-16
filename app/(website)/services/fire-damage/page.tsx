@@ -2,8 +2,19 @@ import type { Metadata } from 'next'
 import { ServicePageTemplate } from '@/components/website/service-page-template'
 
 export const metadata: Metadata = {
-  title: 'Fire Damage Restoration Portland OR | Above & Beyond',
-  description: 'Professional fire damage restoration in Portland OR. Emergency stabilization, soot removal, smoke odor elimination, and reconstruction. IICRC certified. Call 503-608-2930.',
+  title: 'Fire Damage Restoration & Cleanup Portland OR | Above & Beyond',
+  description:
+    'Professional fire damage restoration in Portland, OR. Emergency board-up, soot removal, smoke odor elimination, and structural rebuilds. Call 503-608-2930.',
+  alternates: {
+    canonical: '/services/fire-damage',
+  },
+  openGraph: {
+    title: 'Fire Damage Restoration & Cleanup Portland OR | Above & Beyond',
+    description:
+      '24/7 emergency fire damage mitigation, soot removal, deodorization, and structural reconstruction in Portland, OR. CCB #262371.',
+    type: 'website',
+    url: 'https://www.abovebeyondrestorationllc.com/services/fire-damage',
+  },
 }
 
 export default function FireDamagePage() {
@@ -12,6 +23,7 @@ export default function FireDamagePage() {
       title="Fire Damage Restoration"
       subtitle="From emergency stabilization to complete reconstruction — our IICRC certified team handles every phase of fire damage recovery for residential and commercial properties."
       heroImage="/images/fire-damage.png"
+      slug="fire-damage"
       description={[
         "Experiencing a fire in your home or business is one of the most traumatic events imaginable. Above & Beyond Restoration is here to take the burden off your shoulders and guide you through every step of the recovery process.",
         "We have the experience, manpower, and equipment necessary to perform emergency services quickly and effectively, reducing the damage to the contents and structure of your property. Residue soot and smoke removal is considered part of emergency services because soot is extremely acidic and more difficult to remove the longer it remains in your property.",

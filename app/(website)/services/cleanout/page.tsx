@@ -1,8 +1,20 @@
+import type { Metadata } from 'next'
 import { ServicePageTemplate } from '@/components/website/service-page-template'
 
-export const metadata = {
-  title: 'Clean Out & Junk Removal | Above & Beyond Restoration Portland, OR',
-  description: 'Large-scale cleanout, junk removal, and job site cleanup in Portland, OR. Residential and commercial. Call 503-608-2930.',
+export const metadata: Metadata = {
+  title: 'Clean Out & Junk Removal Services Portland OR | Above & Beyond',
+  description:
+    'Large-scale residential and commercial property cleanout, estate clearing, and job site debris removal in Portland, OR. Fast turnaround. Call 503-608-2930.',
+  alternates: {
+    canonical: '/services/cleanout',
+  },
+  openGraph: {
+    title: 'Clean Out & Junk Removal Services Portland OR | Above & Beyond',
+    description:
+      'Estate clearing, foreclosure cleanouts, and post-restoration debris hauling across Portland metro.',
+    type: 'website',
+    url: 'https://www.abovebeyondrestorationllc.com/services/cleanout',
+  },
 }
 
 export default function CleanoutPage() {
@@ -11,6 +23,7 @@ export default function CleanoutPage() {
       title="Clean Out & Junk Removal"
       subtitle="Large-scale residential and commercial cleanout, estate clearing, and job site removal services throughout the Portland Metro area."
       heroImage="/images/demolition.png"
+      slug="cleanout"
       description={[
         'From post-restoration job site cleanup to full estate cleanouts, Above & Beyond Restoration handles volume debris removal that other companies won\'t. Our large trucks and experienced crews can clear an entire property in a single day, saving you time and the hassle of coordinating multiple vendors.',
         'We serve homeowners, real estate agents, property managers, and contractors throughout the Portland Metro area. Whether you\'re clearing a hoarded home, emptying a rental after a difficult tenant, removing construction debris, or cleaning up after a disaster, we provide fast, thorough service.',

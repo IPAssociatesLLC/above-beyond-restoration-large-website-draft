@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import { HeroSection } from '@/components/website/home/hero-section'
 import { TrustBar } from '@/components/website/home/trust-bar'
 import { ServicesOverview } from '@/components/website/home/services-overview'
@@ -7,6 +8,22 @@ import { TestimonialsSection } from '@/components/website/home/testimonials'
 import { ServiceAreasSection } from '@/components/website/home/service-areas'
 import { CTASection } from '@/components/website/home/cta-section'
 import { FaqAccordion } from '@/components/website/faq-accordion'
+
+export const metadata: Metadata = {
+  title: 'Above & Beyond Restoration | 24/7 Water, Mold & Fire Restoration Portland OR',
+  description:
+    'Portland\'s trusted 24/7 emergency restoration contractor. 90-min arrival, IICRC-certified water extraction, mold remediation, fire cleanup & 5-day dryout fee guarantee. Call 503-608-2930.',
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    title: 'Above & Beyond Restoration | 24/7 Emergency Restoration Portland OR',
+    description:
+      '24/7 emergency water extraction, mold remediation, and fire damage cleanup across the Portland metropolitan area. Oregon CCB #262371.',
+    type: 'website',
+    url: 'https://www.abovebeyondrestorationllc.com',
+  },
+}
 
 const homeFaqs = [
   {
@@ -31,10 +48,47 @@ const homeFaqs = [
   },
 ]
 
+const homeSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': 'https://www.abovebeyondrestorationllc.com/#website',
+      url: 'https://www.abovebeyondrestorationllc.com',
+      name: 'Above & Beyond Restoration',
+      description: 'Portland 24/7 Emergency Water, Mold, and Fire Damage Restoration Services',
+      publisher: {
+        '@id': 'https://www.abovebeyondrestorationllc.com/#organization',
+      },
+      potentialAction: {
+        '@type': 'SearchAction',
+        target: 'https://www.abovebeyondrestorationllc.com/services/guides?q={search_term_string}',
+        'query-input': 'required name=search_term_string',
+      },
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': 'https://www.abovebeyondrestorationllc.com/#faq',
+      mainEntity: homeFaqs.map((faq) => ({
+        '@type': 'Question',
+        name: faq.q,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: faq.a,
+        },
+      })),
+    },
+  ],
+}
+
 // Above & Beyond Restoration — Homepage
 export default function HomePage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(homeSchema) }}
+      />
       <HeroSection />
       <TrustBar />
       <ServicesOverview />
@@ -45,6 +99,7 @@ export default function HomePage() {
         title="Portland Restoration FAQs"
         subtitle="Frequently asked questions about emergency dispatch, insurance billing, and mitigation procedures in Portland, OR."
         faqs={homeFaqs}
+        enableJsonLd={false}
       />
       <ServiceAreasSection />
       <CTASection />

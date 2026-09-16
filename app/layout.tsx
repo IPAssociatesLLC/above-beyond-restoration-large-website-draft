@@ -47,7 +47,7 @@ export const viewport: Viewport = {
 
 const globalLocalBusinessSchema = {
   '@context': 'https://schema.org',
-  '@type': 'LocalBusiness',
+  '@type': ['LocalBusiness', 'EmergencyService'],
   '@id': 'https://www.abovebeyondrestorationllc.com/#organization',
   name: 'Above & Beyond Restoration',
   legalName: 'Above & Beyond Restoration LLC',
@@ -82,6 +82,7 @@ const globalLocalBusinessSchema = {
     { '@type': 'City', name: 'Sherwood' },
     { '@type': 'City', name: 'Salem' },
     { '@type': 'City', name: 'Oregon City' },
+    { '@type': 'City', name: 'West Linn' },
   ],
   openingHoursSpecification: [
     {
@@ -100,13 +101,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en-US" className={`${inter.variable} ${montserrat.variable} bg-background`}>
-      <head>
+      <body className="antialiased font-sans">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(globalLocalBusinessSchema) }}
         />
-      </head>
-      <body className="antialiased font-sans">
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>

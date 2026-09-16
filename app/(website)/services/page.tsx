@@ -1,10 +1,22 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Phone, ArrowRight, Clock } from 'lucide-react'
 
-export const metadata = {
-  title: 'Restoration Services | Above & Beyond Restoration Portland, OR',
-  description: 'Water damage, fire damage, mold remediation, smoke damage, demolition, and more. IICRC certified restoration services in Portland, OR. Call 503-608-2930.',
+export const metadata: Metadata = {
+  title: 'Emergency Property Restoration Services | Above & Beyond Portland OR',
+  description:
+    'Comprehensive 24/7 emergency water extraction, mold remediation, fire damage cleanup, smoke deodorization, and structural demolition services across Portland, OR.',
+  alternates: {
+    canonical: '/services',
+  },
+  openGraph: {
+    title: 'Emergency Restoration Services | Above & Beyond Portland OR',
+    description:
+      '24/7 water, mold, fire, smoke, and demolition restoration services in Portland, OR. IICRC certified, CCB #262371.',
+    type: 'website',
+    url: 'https://www.abovebeyondrestorationllc.com/services',
+  },
 }
 
 const services = [
@@ -66,9 +78,52 @@ const services = [
   },
 ]
 
+const servicesSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'CollectionPage',
+      '@id': 'https://www.abovebeyondrestorationllc.com/services#webpage',
+      url: 'https://www.abovebeyondrestorationllc.com/services',
+      name: 'Restoration Services Directory',
+      description: 'Comprehensive disaster restoration services directory for Portland, OR.',
+      mainEntity: {
+        '@type': 'ItemList',
+        itemListElement: services.map((s, index) => ({
+          '@type': 'ListItem',
+          position: index + 1,
+          name: s.name,
+          url: `https://www.abovebeyondrestorationllc.com${s.href}`,
+        })),
+      },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Home',
+          item: 'https://www.abovebeyondrestorationllc.com',
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'Services',
+          item: 'https://www.abovebeyondrestorationllc.com/services',
+        },
+      ],
+    },
+  ],
+}
+
 export default function ServicesPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesSchema) }}
+      />
       {/* Hero */}
       <section className="bg-brand-navy py-20">
         <div className="container mx-auto px-4 text-center">
