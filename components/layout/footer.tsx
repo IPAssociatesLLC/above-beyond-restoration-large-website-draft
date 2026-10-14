@@ -41,10 +41,7 @@ export function Footer() {
               Portland&apos;s trusted restoration experts. IICRC certified professionals delivering 24/7 emergency services for water, fire, mold, and smoke damage.
             </p>
             <div className="flex flex-col gap-2 text-sm">
-              <div className="flex items-center gap-2 text-white/80">
-                <MapPin className="w-4 h-4 text-brand-orange flex-shrink-0" />
-                <span>P.O. Box 542, Sherwood, OR 97140</span>
-              </div>
+
               <a href="tel:5036082930" className="flex items-center gap-2 text-white/80 hover:text-brand-orange transition-colors">
                 <Phone className="w-4 h-4 text-brand-orange flex-shrink-0" />
                 503-608-2930
@@ -109,12 +106,7 @@ export function Footer() {
               ))}
             </ul>
 
-            <div className="mt-6">
-              <h4 className="text-white font-bold text-sm uppercase tracking-widest mb-3">Service Areas</h4>
-              <p className="text-white/70 text-sm leading-relaxed">
-                Portland • Salem • Bend/Redmond • Gresham • Oregon Coast & surrounding areas
-              </p>
-            </div>
+
           </div>
 
           {/* Quick Links */}
@@ -169,6 +161,12 @@ export function Footer() {
               ))}
             </div>
           </div>
+        </div>
+        <div className="mt-6">
+          <h4 className="text-white font-bold text-sm uppercase tracking-widest mb-3">Service Areas</h4>
+          <p className="text-white/70 text-sm leading-relaxed">
+            Greater Portland Oregon metro (Portland, Beaverton, Hillsboro, Tigard, Lake Oswego, West Linn, Oregon City, Gladstone, Estacada, Clackamas, Happy Valley, Gresham, Tanasborne, Tualatin, Sherwood, Gresham, Troutdale, Wilsonville, Woodburn, Newburg, Mcminville, Keizer, Salem and surrounding) and Vancouver Washington and nearby communities.
+          </p>
         </div>
       </div>
 
