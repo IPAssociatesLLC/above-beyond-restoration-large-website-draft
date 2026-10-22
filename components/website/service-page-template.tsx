@@ -373,7 +373,7 @@ export function ServicePageTemplate({
 
               {/* Contact Info with Verified CCB */}
               <div className="bg-brand-orange/10 border border-brand-orange/30 rounded-2xl p-5 text-center">
-                <p className="text-brand-navy font-bold text-sm mb-1">P.O. Box 542, Sherwood, OR 97140</p>
+                <p className="text-brand-navy font-bold text-sm mb-1">Serving Portland OR & Vanvoucer WA metro areas.</p>
                 <p className="text-gray-700 text-xs font-semibold">Oregon CCB #262371 | Licensed, Bonded, Insured</p>
               </div>
             </div>
