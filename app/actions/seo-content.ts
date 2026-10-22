@@ -632,7 +632,7 @@ export async function generateDayContent(dayNumber: number): Promise<{
           const { output } = await generateText({
             model: 'google/gemini-2.5-flash',
             output: Output.object({ schema: servicePageAiSchema }),
-            prompt: `You are the lead restoration specialist and master SEO architect for Above & Beyond Restoration in Portland, OR (CCB #262371, Phone 503-608-2930, 90-min emergency response, 5-day max dryout guarantee on clean water).
+            prompt: `You are the lead restoration specialist and master SEO architect for Above & Beyond Restoration LLC in Portland, OR (CCB #262371, Phone 503-608-2930, 90-min emergency response, 5-day max dryout guarantee on clean water).
 
 CRITICAL ANTI-DUPLICATION & INDUSTRY PROTOCOL RULES:
 - Target Keyword: "${kw}"
@@ -750,7 +750,7 @@ Ensure high semantic density for local AI search (Perplexity, ChatGPT, Gemini) a
         const { output } = await generateText({
           model: 'google/gemini-2.5-flash',
           output: Output.object({ schema: blogPostAiSchema }),
-          prompt: `You are the senior restoration specialist writing a deep, authoritative educational guide for Above & Beyond Restoration (Portland, OR metro, CCB #262371, Phone 503-608-2930).
+          prompt: `You are the senior restoration specialist writing a deep, authoritative educational guide for Above & Beyond Restoration LLC (Portland, OR metro, CCB #262371, Phone 503-608-2930).
 
 Article Theme: "${dayItem.blogTitle}"
 Focus Keyword: "${dayItem.blogKeyword}"
