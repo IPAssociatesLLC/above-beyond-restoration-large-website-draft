@@ -10,16 +10,16 @@ import { CTASection } from '@/components/website/home/cta-section'
 import { FaqAccordion } from '@/components/website/faq-accordion'
 
 export const metadata: Metadata = {
-  title: 'Above & Beyond Restoration | 24/7 Water, Mold & Fire Restoration Portland OR',
+  title: 'Above & Beyond Restoration LLC | 24/7 Emergency Water & Mold Damage, Fire & Smoke Restoration in Portland OR',
   description:
     'Portland\'s trusted 24/7 emergency restoration contractor. 90-min arrival, IICRC-certified water extraction, mold remediation, fire cleanup & 5-day dryout fee guarantee. Call 503-608-2930.',
   alternates: {
     canonical: '/',
   },
   openGraph: {
-    title: 'Above & Beyond Restoration | 24/7 Emergency Restoration Portland OR',
+    title: 'Above & Beyond Restoration LLC | 24/7 Emergency Water Damage, Mold, Fire & Smoke Restoration Portland OR',
     description:
-      '24/7 emergency water extraction, mold remediation, and fire damage cleanup across the Portland metropolitan area. Oregon CCB #262371.',
+      '24/7 emergency water damage dry out, removal and restoration, mold remediation, and fire & smoke damage cleanup across the Portland OR, Salem OR and Vancouver WA metropolitan areas. Oregon CCB #262371.',
     type: 'website',
     url: 'https://www.abovebeyondrestorationllc.com',
   },
@@ -44,7 +44,7 @@ const homeFaqs = [
   },
   {
     q: 'What service areas do you cover in Oregon?',
-    a: 'We cover all of Multnomah, Washington, Clackamas, and Marion counties, including Portland, Beaverton, Gresham, Hillsboro, Tigard, Lake Oswego, Sherwood, Tualatin, West Linn, Oregon City, and Salem.',
+    a: 'We cover all of Multnomah, Washington, Clackamas, and Marion counties, including Portland, Beaverton, Gresham, Hillsboro, Tigard, Lake Oswego, Sherwood, Newburg, McMinville, Estacada, Gresham, Tualatin, West Linn, Oregon City, Woodburn, Keizer, Aurora, Hubbard and Salem.',
   },
 ]
 
@@ -55,8 +55,8 @@ const homeSchema = {
       '@type': 'WebSite',
       '@id': 'https://www.abovebeyondrestorationllc.com/#website',
       url: 'https://www.abovebeyondrestorationllc.com',
-      name: 'Above & Beyond Restoration',
-      description: 'Portland 24/7 Emergency Water, Mold, and Fire Damage Restoration Services',
+      name: 'Above & Beyond Restoration LLC',
+      description: 'Portland 24/7 Emergency Water Damage Restoration, Mold Remediation, and Fire & Smoke Damage Restoration Services',
       publisher: {
         '@id': 'https://www.abovebeyondrestorationllc.com/#organization',
       },
@@ -96,8 +96,8 @@ export default function HomePage() {
       <WhyChooseUs />
       <TestimonialsSection />
       <FaqAccordion
-        title="Portland Restoration FAQs"
-        subtitle="Frequently asked questions about emergency dispatch, insurance billing, and mitigation procedures in Portland, OR."
+        title="Portland OR Water and Mold Damage Restoration FAQs"
+        subtitle="Frequently asked questions about emergency water damage and dry out dispatch, insurance billing, and mold testing and mitigation procedures in Portland, OR."
         faqs={homeFaqs}
         enableJsonLd={false}
       />
