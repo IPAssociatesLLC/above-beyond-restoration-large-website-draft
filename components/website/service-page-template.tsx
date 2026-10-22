@@ -109,11 +109,10 @@ export function ServicePageTemplate({
           taxID: 'CCB #262371',
           priceRange: '$$',
           address: {
-            '@type': 'PostalAddress',
-            postOfficeBoxNumber: 'P.O. Box 542',
-            addressLocality: 'Sherwood',
+            '@type': 'Place',
+            addressLocality: 'Wilsonville',
             addressRegion: 'OR',
-            postalCode: '97140',
+            postalCode: '97070',
             addressCountry: 'US',
           },
         },
@@ -121,6 +120,9 @@ export function ServicePageTemplate({
           { '@type': 'City', name: 'Portland' },
           { '@type': 'City', name: 'Beaverton' },
           { '@type': 'City', name: 'Tigard' },
+          { '@type': 'City', name: 'Wilsonville' },
+          { '@type': 'City', name: 'Tualatin' },
+          { '@type': 'City', name: 'Clackamas' },
           { '@type': 'City', name: 'Hillsboro' },
           { '@type': 'City', name: 'Lake Oswego' },
           { '@type': 'City', name: 'Sherwood' },
@@ -128,6 +130,11 @@ export function ServicePageTemplate({
           { '@type': 'City', name: 'Oregon City' },
           { '@type': 'City', name: 'West Linn' },
           { '@type': 'City', name: 'Salem' },
+          { '@type': 'City', name: 'Vancouver' }
+        ],
+        regionsServed: [
+          { '@type': 'State', name: 'Oregon' },
+          { '@type': 'State', name: 'Washington' }
         ],
       },
       {
@@ -304,7 +311,7 @@ export function ServicePageTemplate({
               <div className="pt-4">
                 <FaqAccordion
                   title={`${cleanTitle} FAQs`}
-                  subtitle={`Common questions regarding ${cleanTitle.toLowerCase()}, insurance claims, and emergency response across Portland Metro.`}
+                  subtitle={`Common questions regarding ${cleanTitle.toLowerCase()}, insurance claims, and emergency response across Portland OR & Vancouver WA Metros.`}
                   faqs={faqs}
                   badge="Service FAQs"
                   enableJsonLd={false}
