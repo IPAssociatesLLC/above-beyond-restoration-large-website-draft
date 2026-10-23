@@ -30,8 +30,8 @@ export const metadata: Metadata = {
     'water damage restoration Portland OR, fire damage restoration, mold remediation, smoke damage, demolition, property restoration, emergency restoration services, IICRC certified, Oregon CCB 262371',
   authors: [{ name: 'Above & Beyond Restoration' }],
   openGraph: {
-    title: 'Above & Beyond Restoration | Portland, OR',
-    description: '24/7 Emergency Restoration Services - Water, Fire, Mold & More',
+    title: 'Above & Beyond Restoration LLC | Portland, OR Water Damage & Mold Cleanup and Removal Services',
+    description: '24/7 Emergency Restoration Services - Water Damage Dryout and Removal Services, Fire & Smoke Damage Cleanup, Mold Testing & Remediation & More',
     type: 'website',
     locale: 'en_US',
     url: 'https://www.abovebeyondrestorationllc.com',
@@ -61,10 +61,10 @@ const globalLocalBusinessSchema = {
     'Licensed, bonded, and IICRC-certified restoration contractor providing 24/7 emergency water extraction, fire cleanup, mold remediation, and demolition across the Portland metropolitan area.',
   address: {
     '@type': 'PostalAddress',
-    postOfficeBoxNumber: 'P.O. Box 542',
-    addressLocality: 'Sherwood',
+    streetAddress: '8580 SW Wilson Lane',
+    addressLocality: 'Wilsonville',
     addressRegion: 'OR',
-    postalCode: '97140',
+    postalCode: '97070',
     addressCountry: 'US',
   },
   geo: {
@@ -75,14 +75,22 @@ const globalLocalBusinessSchema = {
   areaServed: [
     { '@type': 'City', name: 'Portland' },
     { '@type': 'City', name: 'Beaverton' },
-    { '@type': 'City', name: 'Gresham' },
     { '@type': 'City', name: 'Tigard' },
+    { '@type': 'City', name: 'Wilsonville' },
+    { '@type': 'City', name: 'Tualatin' },
+    { '@type': 'City', name: 'Clackamas' },
     { '@type': 'City', name: 'Hillsboro' },
     { '@type': 'City', name: 'Lake Oswego' },
     { '@type': 'City', name: 'Sherwood' },
-    { '@type': 'City', name: 'Salem' },
+    { '@type': 'City', name: 'Gresham' },
     { '@type': 'City', name: 'Oregon City' },
     { '@type': 'City', name: 'West Linn' },
+    { '@type': 'City', name: 'Salem' },
+    { '@type': 'City', name: 'Vancouver' }
+  ],
+  regionsServed: [
+    { '@type': 'State', name: 'Oregon' },
+    { '@type': 'State', name: 'Washington' }
   ],
   openingHoursSpecification: [
     {
