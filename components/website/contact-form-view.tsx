@@ -102,7 +102,7 @@ export function ContactFormView() {
                   {[
                     { icon: Phone, label: 'Phone (24/7 Emergency)', value: '503-608-2930', href: 'tel:5036082930' },
                     { icon: Mail, label: 'Email', value: 'TommyBletcher@gmail.com', href: 'mailto:TommyBletcher@gmail.com' },
-                    { icon: MapPin, label: 'Mailing Address', value: 'P.O. Box 542, Sherwood, OR 97140', href: null },
+                    { icon: MapPin, label: 'Service Areas', value: 'Portland OR & Vancouver WA Metro areas', href: null },
                     { icon: Clock, label: 'Hours', value: '24/7 Emergency Service — We Never Close', href: null },
                   ].map((item, i) => (
                     <div key={i} className="flex gap-4 bg-white rounded-xl p-4 shadow-sm border border-gray-100">
@@ -126,7 +126,7 @@ export function ContactFormView() {
 
               {/* Certifications */}
               <div className="bg-brand-navy rounded-2xl p-6">
-                <h3 className="text-white font-bold mb-4">Why Choose Above & Beyond</h3>
+                <h3 className="text-white font-bold mb-4">Why Choose Above & Beyond Restoration LLC?</h3>
                 <ul className="space-y-3">
                   {[
                     '90-Minute Emergency Response',
