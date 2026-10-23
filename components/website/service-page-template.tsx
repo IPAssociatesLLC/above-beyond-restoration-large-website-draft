@@ -17,32 +17,26 @@ interface ServicePageProps {
 }
 
 function renderMarkdownText(text: string): React.ReactNode {
-  const linkRegex = /\[(.*?)\]\((.*?)\)/g
+  const linkRegex = /
+
+\[(.*?)\]
+
+\((.*?)\)/g
   const parts: (string | React.ReactNode)[] = []
   let lastIndex = 0
   let match
-
   while ((match = linkRegex.exec(text)) !== null) {
-    if (match.index > lastIndex) {
-      parts.push(text.substring(lastIndex, match.index))
-    }
+    if (match.index > lastIndex) parts.push(text.substring(lastIndex, match.index))
     const linkText = match[1].replace(/\*\*/g, '')
     const href = match[2]
     parts.push(
-      <Link
-        key={`link-${match.index}`}
-        href={href}
-        className="text-brand-orange font-bold hover:underline"
-      >
+      <Link key={`link-${match.index}`} href={href} className="text-brand-orange font-bold hover:underline">
         {linkText}
       </Link>
     )
     lastIndex = linkRegex.lastIndex
   }
-  if (lastIndex < text.length) {
-    parts.push(text.substring(lastIndex))
-  }
-
+  if (lastIndex < text.length) parts.push(text.substring(lastIndex))
   const result: React.ReactNode[] = []
   parts.forEach((part, pIdx) => {
     if (typeof part !== 'string') {
@@ -57,12 +51,9 @@ function renderMarkdownText(text: string): React.ReactNode {
             {bPart.slice(2, -2)}
           </strong>
         )
-      } else if (bPart) {
-        result.push(bPart)
-      }
+      } else if (bPart) result.push(bPart)
     })
   })
-
   return result
 }
 
@@ -78,7 +69,6 @@ export function ServicePageTemplate({
   slug,
   enableJsonLd = true,
 }: ServicePageProps) {
-  // Prevent duplicate 'Emergency Emergency...'
   const cleanTitle = title.replace(/^Emergency\s+/i, '').trim()
   const displayTitle = title.startsWith('Emergency') ? title : `Emergency ${title}`
   const isMold = title.toLowerCase().includes('mold')
@@ -109,13 +99,27 @@ export function ServicePageTemplate({
           taxID: 'CCB #262371',
           priceRange: '$$',
           address: {
-            '@type': 'Place',
+            '@type': 'PostalAddress',
+            streetAddress: '8580 SW Wilson Lane',
             addressLocality: 'Wilsonville',
             addressRegion: 'OR',
             postalCode: '97070',
             addressCountry: 'US',
           },
         },
+
+        serviceArea: [
+          {
+            '@type': 'GeoCircle',
+            geoMidpoint: {
+              '@type': 'GeoCoordinates',
+              latitude: 45.303,
+              longitude: -122.768,
+            },
+            geoRadius: '40000',
+          },
+        ],
+
         areaServed: [
           { '@type': 'City', name: 'Portland' },
           { '@type': 'City', name: 'Beaverton' },
@@ -130,11 +134,12 @@ export function ServicePageTemplate({
           { '@type': 'City', name: 'Oregon City' },
           { '@type': 'City', name: 'West Linn' },
           { '@type': 'City', name: 'Salem' },
-          { '@type': 'City', name: 'Vancouver' }
+          { '@type': 'City', name: 'Vancouver' },
         ],
+
         regionsServed: [
           { '@type': 'State', name: 'Oregon' },
-          { '@type': 'State', name: 'Washington' }
+          { '@type': 'State', name: 'Washington' },
         ],
       },
       {
@@ -152,24 +157,9 @@ export function ServicePageTemplate({
       {
         '@type': 'BreadcrumbList',
         itemListElement: [
-          {
-            '@type': 'ListItem',
-            position: 1,
-            name: 'Home',
-            item: 'https://www.abovebeyondrestorationllc.com',
-          },
-          {
-            '@type': 'ListItem',
-            position: 2,
-            name: 'Services',
-            item: 'https://www.abovebeyondrestorationllc.com/services',
-          },
-          {
-            '@type': 'ListItem',
-            position: 3,
-            name: title,
-            item: canonicalUrl,
-          },
+          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.abovebeyondrestorationllc.com' },
+          { '@type': 'ListItem', position: 2, name: 'Services', item: 'https://www.abovebeyondrestorationllc.com/services' },
+          { '@type': 'ListItem', position: 3, name: title, item: canonicalUrl },
         ],
       },
     ],
