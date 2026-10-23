@@ -39,23 +39,31 @@ const contactPageSchema = {
       taxID: 'CCB #262371',
       address: {
         '@type': 'PostalAddress',
-        postOfficeBoxNumber: 'P.O. Box 542',
-        addressLocality: 'Sherwood',
+        streetAddress: '8580 SW Wilson Lane',
+        addressLocality: 'Wilsonville',
         addressRegion: 'OR',
-        postalCode: '97140',
+        postalCode: '97070',
         addressCountry: 'US',
       },
       areaServed: [
         { '@type': 'City', name: 'Portland' },
         { '@type': 'City', name: 'Beaverton' },
-        { '@type': 'City', name: 'Gresham' },
         { '@type': 'City', name: 'Tigard' },
+        { '@type': 'City', name: 'Wilsonville' },
+        { '@type': 'City', name: 'Tualatin' },
+        { '@type': 'City', name: 'Clackamas' },
         { '@type': 'City', name: 'Hillsboro' },
         { '@type': 'City', name: 'Lake Oswego' },
         { '@type': 'City', name: 'Sherwood' },
+        { '@type': 'City', name: 'Gresham' },
         { '@type': 'City', name: 'Oregon City' },
         { '@type': 'City', name: 'West Linn' },
         { '@type': 'City', name: 'Salem' },
+        { '@type': 'City', name: 'Vancouver' }
+      ],
+      regionsServed: [
+        { '@type': 'State', name: 'Oregon' },
+        { '@type': 'State', name: 'Washington' }
       ],
       openingHoursSpecification: [
         {
