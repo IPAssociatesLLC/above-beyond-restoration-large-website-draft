@@ -117,6 +117,20 @@ export function ServicePageTemplate({
             addressCountry: 'US',
           },
         },
+
+        location: {
+          "@type": "Place",
+          "geo": {
+            "@type": "GeoCircle",
+            "geoMidpoint": {
+              "@type": "GeoCoordinates",
+              "latitude": "45.303",
+              "longitude": "-122.768"
+            },
+            "geoRadius": "40000"
+          }
+        },
+
         areaServed: [
           { '@type': 'City', name: 'Portland' },
           { '@type': 'City', name: 'Beaverton' },
