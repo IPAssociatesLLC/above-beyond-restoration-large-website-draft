@@ -89,12 +89,12 @@ const globalLocalBusinessSchema = {
     { '@type': 'City', name: 'Wilsonville' },
     { '@type': 'City', name: 'Tualatin' },
     { '@type': 'City', name: 'Clackamas' },
-    { '@type': 'City', name: 'Gladstone' }
-    { '@type': 'City', name: 'Estacada' }
-    { '@type': 'City', name: 'Newburg' }
-    { '@type': 'City', name: 'McMinnville' }
+    { '@type': 'City', name: 'Gladstone' },
+    { '@type': 'City', name: 'Estacada' },
+    { '@type': 'City', name: 'Newburg' },
+    { '@type': 'City', name: 'McMinnville' },
     { '@type': 'City', name: 'Hillsboro' },
-    { '@type': 'City', name: 'Tanasborne' }
+    { '@type': 'City', name: 'Tanasborne' },
     { '@type': 'City', name: 'Lake Oswego' },
     { '@type': 'City', name: 'Sherwood' },
     { '@type': 'City', name: 'Gresham' },
