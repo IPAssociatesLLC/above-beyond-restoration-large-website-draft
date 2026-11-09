@@ -101,12 +101,20 @@ const globalLocalBusinessSchema = {
     { '@type': 'City', name: 'Oregon City' },
     { '@type': 'City', name: 'West Linn' },
     { '@type': 'City', name: 'Salem' },
-    { '@type': 'City', name: 'Keizer' }
-    { '@type': 'City', name: 'Woodburn' }
-    { '@type': 'City', name: 'Vancouver' }
-    { '@type': 'City', name: 'Camas' }
-    { '@type': 'City', name: 'Troutdale' }
-    { '@type': 'City', name: 'Happy Valley' }
+    { '@type': 'City', name: 'Keizer' },
+    { '@type': 'City', name: 'Woodburn' },
+    { '@type': 'City', name: 'Vancouver' },
+    { '@type': 'City', name: 'Camas' },
+    { '@type': 'City', name: 'Troutdale' },
+    { '@type': 'City', name: 'Happy Valley' },
+    { '@type': 'City', name: 'Boring' },
+    { '@type': 'City', name: 'St Johns' },
+    { '@type': 'City', name: 'Sandy' },
+    { '@type': 'AdministrativeArea', name: 'Multnomah County' },
+    { '@type': 'AdministrativeArea', name: 'Washington County' },
+    { '@type': 'AdministrativeArea', name: 'Clackamas County' },
+    { '@type': 'AdministrativeArea', name: 'Marion County' },
+    { '@type': 'AdministrativeArea', name: 'Clark County' }
   ],
   regionsServed: [
     { '@type': 'State', name: 'Oregon' },
