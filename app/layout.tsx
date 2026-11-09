@@ -59,7 +59,7 @@ const globalLocalBusinessSchema = {
   taxID: 'Oregon CCB #262371 / Washington L&I ABOVEBR742N8',
   sameAs: [
     'https://www.ccb.state.or.us/search/business_details.aspx',
-    'https://secure.lni.wa.gov/verify/Detail.aspx?UBI=606263212&LIC=ABOVEBR742N8&SAW='.
+    'https://secure.lni.wa.gov/verify/Detail.aspx?UBI=606263212&LIC=ABOVEBR742N8&SAW=',
     'https://maps.app.goo.gl/wBgBecdzN1aGRFB28',
     'https://www.mapquest.com/us/oregon/above-beyond-restoration-379451800',
     'https://www.facebook.com/aboveandbeyondrestoration',
