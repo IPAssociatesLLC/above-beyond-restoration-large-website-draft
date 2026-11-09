@@ -136,6 +136,7 @@ export function ContactFormView() {
                     '100% Satisfaction Guarantee',
                     'Licensed, Bonded & Insured',
                     'CCB #262371',
+                    'Washington L&I #ABOVEBR742N8',
                   ].map((item) => (
                     <li key={item} className="flex items-center gap-2 text-white/80 text-sm">
                       <CheckCircle className="w-4 h-4 text-brand-orange flex-shrink-0" />
