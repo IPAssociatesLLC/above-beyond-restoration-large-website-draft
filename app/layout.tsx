@@ -23,7 +23,7 @@ export const metadata: Metadata = {
       'en-US': '/',
     },
   },
-  title: 'Above & Beyond Restoration | Portland, OR - Water, Fire & Mold Damage Experts',
+  title: 'Above & Beyond Restoration | Portland OR & Vancouver WA - Water, Fire & Mold Damage Experts',
   description:
     'Above & Beyond Restoration provides 24/7 emergency restoration services in Portland, OR. Specializing in water damage, fire damage, mold remediation, smoke damage, demolition, and more. IICRC certified. Call 503-608-2930.',
   keywords:
@@ -56,7 +56,17 @@ const globalLocalBusinessSchema = {
   email: 'TommyBletcher@gmail.com',
   image: 'https://www.abovebeyondrestorationllc.com/logo.png',
   priceRange: '$$',
-  taxID: 'CCB #262371',
+  taxID: 'Oregon CCB #262371 / Washington L&I ABOVEBR742N8',
+  sameAs: [
+    'https://www.ccb.state.or.us/search/business_details.aspx',
+    'https://secure.lni.wa.gov/verify/Detail.aspx?UBI=606263212&LIC=ABOVEBR742N8&SAW='.
+    'https://maps.app.goo.gl/wBgBecdzN1aGRFB28',
+    'https://www.mapquest.com/us/oregon/above-beyond-restoration-379451800',
+    'https://www.facebook.com/aboveandbeyondrestoration',
+    'https://www.yelp.com/biz/above-and-beyond-restoration-wilsonville',
+    'https://pnwsmallbusiness.com/b/above-beyond-restoration-llc',
+    'https://local.yahoo.com/info-210820649-above-beyond-restoration-wilsonville/?guccounter=1&guce_referrer=aHR0cHM6Ly93d3cuZ29vZ2xlLmNvbS8&guce_referrer_sig=AQAAAHLlqjPTizbx8j3BkaTd1TugYGFJpRONXsrLAJ_QOwxQYmni7ARFLAOnIukxGIo6IM5Kzw6auqQ_6LqfMf2JGYjzlhJxzvuVkGPChxHoVdVCadavGNR8FrcZBRsAN1X-2CTkRKyy2L0T-6xC-JOBc9eQ1JZFBkApLpb_MdgHhAwB',
+  ],  
   description:
     'Licensed, bonded, and IICRC-certified restoration contractor providing 24/7 emergency water extraction, fire cleanup, mold remediation, and demolition across the Portland metropolitan area.',
   address: {
@@ -69,8 +79,8 @@ const globalLocalBusinessSchema = {
   },
   geo: {
     '@type': 'GeoCoordinates',
-    latitude: 45.3562,
-    longitude: -122.8426,
+    latitude: 45.3090,
+    longitude: -122.7715,
   },
   areaServed: [
     { '@type': 'City', name: 'Portland' },
@@ -79,14 +89,24 @@ const globalLocalBusinessSchema = {
     { '@type': 'City', name: 'Wilsonville' },
     { '@type': 'City', name: 'Tualatin' },
     { '@type': 'City', name: 'Clackamas' },
+    { '@type': 'City', name: 'Gladstone' }
+    { '@type': 'City', name: 'Estacada' }
+    { '@type': 'City', name: 'Newburg' }
+    { '@type': 'City', name: 'McMinnville' }
     { '@type': 'City', name: 'Hillsboro' },
+    { '@type': 'City', name: 'Tanasborne' }
     { '@type': 'City', name: 'Lake Oswego' },
     { '@type': 'City', name: 'Sherwood' },
     { '@type': 'City', name: 'Gresham' },
     { '@type': 'City', name: 'Oregon City' },
     { '@type': 'City', name: 'West Linn' },
     { '@type': 'City', name: 'Salem' },
+    { '@type': 'City', name: 'Keizer' }
+    { '@type': 'City', name: 'Woodburn' }
     { '@type': 'City', name: 'Vancouver' }
+    { '@type': 'City', name: 'Camas' }
+    { '@type': 'City', name: 'Troutdale' }
+    { '@type': 'City', name: 'Happy Valley' }
   ],
   regionsServed: [
     { '@type': 'State', name: 'Oregon' },
